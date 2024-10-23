@@ -5,6 +5,7 @@
     --font-primary: 'Roboto', sans-serif;
 
     --color-accent: #52ba47;
+    --black-to-accent-filter: invert(29%) sepia(97%) saturate(3415%) hue-rotate(88deg) brightness(95%) contrast(90%);
 }
 
 *
