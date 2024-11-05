@@ -31,6 +31,11 @@ class UserProfile
     private $pet_type;
     private $animal_breed;
 
+    private $created_at;
+    private $last_login;
+    private $role;
+    private $status;
+
     public function __construct(array $parameters)
     {
         $this->user_id    = $parameters['user_id'] ?? generateUserID();             // Randomly generated user ID
@@ -40,7 +45,11 @@ class UserProfile
         $this->zip_code   = $parameters['zip_code'] ?? null;                        // Zip code of the user
         $this->pet_type   = $parameters['pet_type'] ?? null;                        // Type of pet (e.g. dog, cat, ...)
         $this->animal_breed = $parameters['animal_breed'] ?? null;                  // Breed of the pet (e.g. Golden Retriever)
-    }
+        $this->created_at = $parameters['created_at'] ?? date('Y-m-d H:i:s');       // Date of profile creation
+        $this->last_login = $parameters['last_login'] ?? null;                      // Date of last login
+        $this->status     = $parameters['status'] ?? 1;                             // Status of the profile (0 = unverified, 1 = active, 2 = banned)
+        $this->role       = $parameters['role'] ?? 1;                               // Role of the profile (1 = user, 2 = professional, 3 = admin)
+    }   
 
 
     public function generateUserID()
@@ -71,8 +80,8 @@ class UserProfile
     {
         return password_verify($password, $this->password);
     }
-
     
+
     public function save()
     {
         if(!defined('USER_STORAGE_FILE')) 
@@ -180,4 +189,32 @@ class UserProfile
         }
         return null;
     }
+
+
+
+    // ============================ GETTER METHODS ============================
+    public function getUserID()         { return $this->user_id; }
+    public function getUsername()        { return $this->username; }
+    public function getPassword()        { return $this->password; }
+    public function getEmail()           { return $this->email; }
+    public function getZipCode()         { return $this->zip_code; }
+    public function getPetType()         { return $this->pet_type; }
+    public function getAnimalBreed()     { return $this->animal_breed; }
+    public function getCreatedAt()       { return $this->created_at; }
+    public function getLastLogin()       { return $this->last_login; }
+    public function getStatus()          { return $this->status; }
+    public function getRole()            { return $this->role; }
+
+    // ============================ SETTER METHODS ============================
+    public function setUserID($user_id)         { $this->user_id = $user_id; }
+    public function setUsername($username)      { $this->username = $username; }
+    public function setPassword($password)      { $this->password = $password; }
+    public function setEmail($email)            { $this->email = $email; }
+    public function setZipCode($zip_code)       { $this->zip_code = $zip_code; }
+    public function setPetType($pet_type)       { $this->pet_type = $pet_type; }
+    public function setAnimalBreed($animal_breed) { $this->animal_breed = $animal_breed; }
+    public function setCreatedAt($created_at)   { $this->created_at = $created_at; }
+    public function setLastLogin($last_login)   { $this->last_login = $last_login; }
+    public function setStatus($status)          { $this->status = $status; }
+    public function setRole($role)              { $this->role = $role; }
 }
