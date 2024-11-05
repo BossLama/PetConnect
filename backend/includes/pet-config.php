@@ -18,5 +18,6 @@
     define('STORAGE_FOLDER', "./storage/");
     define('USER_STORAGE_FILE', STORAGE_FOLDER . "users.json");
 
+    define('JWT_SECRET_FILE', "./keys/jwt_secret.key");
 
 ?>
