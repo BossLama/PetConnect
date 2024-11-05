@@ -9,4 +9,4 @@ Im Folgenden wird ein Arbeitsvorgehen definiert:
 # Verschiedene Branches
 Der "main"-Branch beinhaltet das aktuelle Release
 Der "development_stable" beinhaltet stabile Developer-Releases (z.B. eine Beta)
-der "development" beinhaltet den aktuellen Code und kann instable sein
+der "development" beinhaltet den aktuellen Code und kann instable sein Test
