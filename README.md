@@ -1,12 +1,36 @@
 Gemeinschaftliches Projekt für die Uni
 
-## Arbeitsvorgehen
-Im Folgenden wird ein Arbeitsvorgehen definiert:
-1. Beim starten *IMMER* den Branch prüfen und im normallfall auf "development" setzen.
-2. Immer die aktuelle Version via "pull-request" aus dem Branch ziehen
-3. Alle Änderungen sofort pushen und commiten
+# Best Practises und Entwicklungsabläufe
+Im Folgenden werden Entwicklungsabläufe und Best Practises definiert, um einen einheitlichen Code zu schaffen.
 
-# Verschiedene Branches
-Der "main"-Branch beinhaltet das aktuelle Release
-Der "development_stable" beinhaltet stabile Developer-Releases (z.B. eine Beta)
-der "development" beinhaltet den aktuellen Code und kann instable sein
+## Back-End
+Folgende Regeln gelten für Arbeiten im Backend:
+
+### 1. Neue Dateien
+Neue Dateien im Backend müssen im richtigen Ordner erstellt werden. Der Name sollte einzigartig und eindeutig sein.
+Jede Datei (seit 01.11.2024) besitzt folgenden Header mit angepassten Informationen
+```php
+/**
+ *  =================================================================================
+ *  Name        :       name-of-the-file.php
+ *  Purpose     :       This files does this
+ *  Authors     :       Jonas Riemer, Fabian Belli
+ *  Last edited :       dd.MM.yyyy
+ *  =================================================================================
+ *  
+ *  USAGE       :
+ *  How do I use the file in code
+ *  
+ *  EXAMPLE     :
+ *  Give some example usages
+ */
+```
+
+Klassen erhalten immer einen Namespace. Dieser ist die Ordnerstruktur ausgehend vom
+Root des Backends.
+```php
+# File is located in ./includes/
+namespace Includes;
+class MyIncludedClass
+{}
+```
