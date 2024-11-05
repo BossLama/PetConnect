@@ -8,10 +8,16 @@
  *  =================================================================================
  *  
  *  USAGE       :
- *  ---
+ *  Include this file in your PHP script to get access to the UserProfile class.
  *  
  *  EXAMPLE     :
- *  ---
+ *  $user = new UserProfile(array());
+ *  $user->save();
+ *  $user->delete();
+ *  $users = UserProfile::getAll();
+ *  $user = UserProfile::findByID('user_id');
+ *  $user = UserProfile::findByEmail('email');
+ *  
  */
 namespace entities;
 class UserProfile
@@ -67,5 +73,111 @@ class UserProfile
     }
 
     
+    public function save()
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
 
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        $users[$this->user_id] = $this;
+        file_put_contents(USER_STORAGE_FILE, json_encode($users, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
+    }
+
+
+    public function delete()
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
+
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        unset($users[$this->user_id]);
+        file_put_contents(USER_STORAGE_FILE, json_encode($users, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
+    }
+
+
+    public static function getAll()
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
+
+        return json_decode(file_get_contents(USER_STORAGE_FILE), true);
+    }
+
+
+    public static function findByID($userID)
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
+
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        return $users[$userID] ?? null;
+    }
+
+    public static function findByEmail($email)
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
+
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        foreach($users as $user)
+        {
+            if($user->email == $email) return $user;
+        }
+        return null;
+    }
 }

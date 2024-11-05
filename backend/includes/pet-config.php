@@ -16,6 +16,7 @@
  */
 
     define('STORAGE_FOLDER', "./storage/");
+    define('USER_STORAGE_FILE', STORAGE_FOLDER . "users.json");
 
 
 ?>
