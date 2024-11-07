@@ -22,9 +22,9 @@ namespace entities;
 class JsonWebToken
 {
 
-    private $header;
-    private $payload;
-    private $signature;
+    public $header;
+    public $payload;
+    public $signature;
 
     public function __construct(array $parameters)
     {
