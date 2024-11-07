@@ -65,7 +65,7 @@ class UserProfile
         if(!preg_match('/[A-Z]/', $this->password))         return false;
         if(!preg_match('/[a-z]/', $this->password))         return false;
         if(!preg_match('/[0-9]/', $this->password))         return false;
-        if(!preg_match('/[^A-Za-z0-9]/', $this->password))  return false;
+        if(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $this->password)) return false;
         return true;
     }
 
