@@ -31,7 +31,9 @@ try
     $request_body   = json_decode(file_get_contents('php://input'), true);
 
     $endpoint_id    = $request_body["endpoint_id"] ?? null;
+    if($endpoint_id == null) $endpoint_id = $_GET['endpoint_id'] ?? null;
     $parameters     = $request_body["parameters"] ?? array();
+    $get_parameters = $_GET;
     $token          = $request_body["token"] ?? null;
 
     switch($endpoint_id)
@@ -39,11 +41,18 @@ try
         case "auth":
             require_once "./endpoints/AuthEndpoint.php";
             $endpoint = new endpoints\AuthEndpoint();
-            $response = $endpoint->handleRequest($parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
-        default: throw new Exception('Invalid endpoint id given', 400);
+        case "zipcodestack":
+            require_once "./endpoints/ZipcodestackEndpoint.php";
+            $endpoint = new endpoints\ZipcodestackEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
+
+        default: throw new Exception('Invalid endpoint \''. $endpoint_id .'\' id given', 400);
     }
 }
 catch(Exception $e)
