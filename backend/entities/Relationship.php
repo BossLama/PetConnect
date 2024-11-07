@@ -23,7 +23,7 @@ namespace entities;
 class Relationship
 {
     // Class properties
-    private $relation_id;
+    private $relationship_id;
     private $status;
     private $date;
     private $from_user;
@@ -67,7 +67,7 @@ class Relationship
         }
 
         $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE, true));
-        $relationships[$this->relation_id] = $this->asArray();
+        $relationships[$this->relationship_id] = $this->asArray();
         file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
@@ -89,7 +89,7 @@ class Relationship
         }
 
         $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
-        unset($relationships[$this->relation_id]);
+        unset($relationships[$this->relationship_id]);
         file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
@@ -185,14 +185,14 @@ class Relationship
 
 
     // ============================ GETTER METHODS ============================
-    public function getRelationID()      { return $this->relation_id; }
+    public function getRelationID()      { return $this->relationship_id; }
     public function getStatus()          { return $this->status; }
     public function getDate()            { return $this->date; }
     public function getFromUser()        { return $this->from_user; }
     public function getToUser()          { return $this->to_user; }
 
     // ============================ SETTER METHODS ============================
-    public function setRelationID($relation_id)  { $this->$relation_id = $relation_id; }
+    public function setRelationID($relation_id)  { $this->relationship_id = $relation_id; }
     public function setStatus($status)           { $this->status = $status; }
     public function setDate($date)               { $this->date = $date; }
     public function setFromUser($from_user)      { $this->from_user = $from_user; }
