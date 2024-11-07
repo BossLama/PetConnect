@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Required parameters:
- * - email
- * - username
- * - password
- */
-
 
 namespace endpoints;
 class AuthEndpoint extends Endpoint
@@ -90,11 +83,24 @@ class AuthEndpoint extends Endpoint
     // Method is not allowed
     public function onGet() : array
     {
+        $tokenString      = $this->parameters["token"] ?? null;
+        $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
+
+        if(!$token_valid)
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Token is invalid";
+            $response["code"]       = "400";
+            $response["hint"]       = "Token is invalid";
+            return $response;
+        }
+
         $response               = array();
-        $response["status"]     = "error";
-        $response["message"]    = "Method is not allowed";
-        $response["code"]       = "400";
-        $response["hint"]       = "Please use a valid request method";
+        $response["status"]     = "success";
+        $response["message"]    = "Token is valid";
+        $response["code"]       = "200";
+        $response["hint"]       = "Token is valid";
         return $response;
     }
 
