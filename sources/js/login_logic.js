@@ -49,6 +49,7 @@ function checkZipCode()
         }
         else
         {
+            if(zip == "") return;
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Diese Postleitzahl kennen wir nicht', 5000);
             document.getElementById("input_register_zip").focus();
