@@ -23,7 +23,7 @@ namespace entities;
 class Relationship
 {
     // Class properties
-    private $relationship_id;
+    private $relation_id;
     private $status;
     private $date;
     private $from_user;
@@ -31,7 +31,7 @@ class Relationship
 
     public function __construct(array $parameters)
     {
-        $this->relationship_id  = $parameters["relationship_id"];                         // ID of relationship
+        $this->relation_id  = $parameters["relation_id"];                         // ID of relationship
         $this->status           = $parameters['status'] ?? 1;                             // Status of the profile (0 = blocked, 1 = pending)
         $this->date             = $parameters['date'] ?? date('Y-m-d H:i:s');     // Date of last relationsship update between users
         $this->from_user        = $parameters['from_user'] ?? null;                       // Sender of the request / blocker
@@ -41,7 +41,7 @@ class Relationship
     public function asArray()
     {
         return array(
-            'relationship_id'   => $this->relationship_id, 
+            'relation_id'   => $this->relation_id, 
             'status'            => $this->status,
             'date'              => $this->date,
             'from_user'         => $this->from_user,
@@ -66,7 +66,7 @@ class Relationship
         }
 
         $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE, true));
-        $relationships[$this->relationship_id] = $this->asArray();
+        $relationships[$this->relation_id] = $this->asArray();
         file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
@@ -88,7 +88,7 @@ class Relationship
         }
 
         $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
-        unset($relationships[$this->relationship_id]);
+        unset($relationships[$this->relation_id]);
         file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
@@ -184,14 +184,14 @@ class Relationship
 
 
     // ============================ GETTER METHODS ============================
-    public function getRelationID()      { return $this->relationship_id; }
+    public function getRelationID()      { return $this->relation_id; }
     public function getStatus()          { return $this->status; }
     public function getDate()            { return $this->date; }
     public function getFromUser()        { return $this->from_user; }
     public function getToUser()          { return $this->to_user; }
 
     // ============================ SETTER METHODS ============================
-    public function setRelationID($relation_id)  { $this->relationship_id = $relation_id; }
+    public function setRelationID($relation_id)  { $this->relation_id = $relation_id; }
     public function setStatus($status)           { $this->status = $status; }
     public function setDate($date)               { $this->date = $date; }
     public function setFromUser($from_user)      { $this->from_user = $from_user; }
