@@ -86,6 +86,7 @@ class UserProfile
         return array(
             'user_id'       => $this->user_id,
             'username'      => $this->username,
+            'password'      => $this->password,
             'email'         => $this->email,
             'zip_code'      => $this->zip_code,
             'pet_type'      => $this->pet_type,
@@ -200,7 +201,7 @@ class UserProfile
         $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
         foreach($users as $user)
         {
-            if($user->email == $email) return $user;
+            if($user["email"] == $email) return new UserProfile($user);
         }
         return null;
     }

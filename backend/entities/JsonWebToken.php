@@ -49,10 +49,10 @@ class JsonWebToken
 
         $payload = 
         [
-            'user_id' => $user->user_id,
-            'username' => $user->username,
-            'email' => $user->email,
-            'role' => $user->role,
+            'user_id' => $user->getUserId(),
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'role' => $user->getRole(),
             'iat' => time(),
             'exp' => time() + 3600
         ];
