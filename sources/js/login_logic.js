@@ -9,7 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
         var zip = document.getElementById("input_register_zip").value;
         var zip = zip.split(" ")[0];
         document.getElementById("input_register_zip").value = zip;
-
+    });
+    document.getElementById("input_register_zip").addEventListener("keydown", function(event) {
+        if(isNaN(event.key) && event.key != "Backspace")
+        {
+            event.preventDefault();
+        }
     });
 
 });
