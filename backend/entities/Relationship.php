@@ -43,7 +43,7 @@ class Relationship
     public function asArray()
     {
         return array(
-            'relationship_id'   => $this->relation_id, 
+            'relationship_id'   => $this->relationship_id, 
             'status'            => $this->status,
             'date'              => $this->date,
             'from_user'         => $this->from_user,
