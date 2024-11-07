@@ -44,9 +44,9 @@ abstract class Endpoint
     {
         $this->parameters           = $parameters;
         $this->method               = strtoupper($method);
-        $this->token                = $token;
+        $this->token                = $token ?? "";
 
-        if ($requires_auth && !authenticate($token))
+        if ($requires_auth && !$this->authenticate($this->token))
         {
             $response               = array();
             $response["status"]     = "error";
@@ -88,8 +88,9 @@ abstract class Endpoint
     
     public function authenticate(string $token)
     {
+        require_once "./entities/JsonWebToken.php";
+        if(!\entities\JsonWebToken::verifyToken($token)) return false;
         $token = \entities\JsonWebToken::fromToken($token);
-        if (!$token->verify()) return null;
         $payload = $token->payload;
         if(!isset($payload['user_id'])) return null;
         $user = \entities\User::fromId($payload['user_id']);
