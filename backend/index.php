@@ -43,6 +43,13 @@ try
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
+        case "zipcodestack":
+            require_once "./endpoints/ZipcodestackEndpoint.php";
+            $endpoint = new endpoints\ZipcodestackEndpoint();
+            $response = $endpoint->handleRequest($parameters, $_SERVER['REQUEST_METHOD'], $token, true);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
+
         default: throw new Exception('Invalid endpoint id given', 400);
     }
 }
