@@ -29,8 +29,6 @@ class Relationship
     private $from_user;
     private $to_user;
 
-
-
     public function __construct(array $parameters)
     {
         $this->relationship_id  = $parameters["relationship_id"];                         // ID of relationship
