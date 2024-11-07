@@ -1,0 +1,14 @@
+@import url(modules/default.css);
+@import url(modules/login_form.css);
+
+main
+{
+    min-height: 100vH;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background-size: cover;
+    background-position: center;
+}
