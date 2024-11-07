@@ -31,8 +31,8 @@ abstract class Endpoint
             case "DELETE":
                 return $this->onDelete();
                 break;
-            case "UPDATE":
-                return $this->onUpdate();
+            case "PUT":
+                return $this->onPut();
                 break;
             default:
                 $response               = array();
@@ -47,7 +47,7 @@ abstract class Endpoint
     abstract function onPost() : array;
     abstract function onGet() : array;
     abstract function onDelete() : array;
-    abstract function onUpdate() : array;
+    abstract function onPut() : array;
 
     
     public function authenticate(string $token)
