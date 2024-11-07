@@ -38,7 +38,7 @@ class UserProfile
 
     public function __construct(array $parameters)
     {
-        $this->user_id    = $parameters['user_id'] ?? generateUserID();             // Randomly generated user ID
+        $this->user_id    = $parameters['user_id'] ?? $this->generateUserID();             // Randomly generated user ID
         $this->username   = $parameters['username'] ?? null;                        // Username of profile (Name of the pet)
         $this->password   = $parameters['password'] ?? null;                        // Password of profile
         $this->email      = $parameters['email'] ?? null;                           // Email of profile (unique, used for login)
@@ -81,6 +81,21 @@ class UserProfile
         return password_verify($password, $this->password);
     }
     
+    public function asArray()
+    {
+        return array(
+            'user_id'       => $this->user_id,
+            'username'      => $this->username,
+            'email'         => $this->email,
+            'zip_code'      => $this->zip_code,
+            'pet_type'      => $this->pet_type,
+            'animal_breed'  => $this->animal_breed,
+            'created_at'    => $this->created_at,
+            'last_login'    => $this->last_login,
+            'status'        => $this->status,
+            'role'          => $this->role
+        );
+    }
 
     public function save()
     {
@@ -99,7 +114,7 @@ class UserProfile
         }
 
         $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
-        $users[$this->user_id] = $this;
+        $users[$this->user_id] = $this->asArray();
         file_put_contents(USER_STORAGE_FILE, json_encode($users, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 

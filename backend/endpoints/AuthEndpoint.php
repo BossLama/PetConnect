@@ -33,29 +33,28 @@ class AuthEndpoint extends Endpoint
         $user_data["username"]  = $username;
         $user_data["email"]     = $email;
         $user_data["password"]  = $password;
-        $user_data["zip"]       = $zip;
+        $user_data["zip_code"]  = $zip;
 
         include_once "./entities/UserProfile.php";
         $user = new \entities\UserProfile($user_data);
+        $user->save();
 
-        if($user->save())
-        {
-            $response               = array();
-            $response["status"]     = "success";
-            $response["message"]    = "User has been created";
-            $response["code"]       = "200";
-            $response["hint"]       = "User has been created";
-            return $response;
-        }
-        else
+        $user = \entities\UserProfile::findByEmail($email);
+        if(!isset($user))
         {
             $response               = array();
             $response["status"]     = "error";
             $response["message"]    = "User could not be created";
-            $response["code"]       = "400";
-            $response["hint"]       = "User could not be created";
+            $response["code"]       = "500";
+            $response["hint"]       = "User could not be found after creation";
             return $response;
         }
+
+        require_once "./entities/JsonWebToken.php";
+        $token = \entities\JsonWebToken::create($user);
+        
+
+        return [];
     }
 
     public function onGet() : array
