@@ -1,4 +1,37 @@
 <?php
+/**
+ *  =================================================================================
+ *  Name        :       AuthEndpoint.php
+ *  Purpose     :       Entity class for the JSON Web Token
+ *  Authors     :       Jonas Riemer, Fabian Belli
+ *  Last edited :       01.11.2024
+ *  =================================================================================
+ *  
+ * Class AuthEndpoint
+ * 
+ * This class provides an endpoint for user authentication and registration within an API.
+ * It handles various HTTP request methods to register, authenticate, and validate users.
+ *
+ * Methods:
+ * - onPost(): Handles user registration. Validates input parameters, ensures unique email, checks password strength,
+ *              and saves a new user profile if valid. Generates a JWT token upon successful registration.
+ * 
+ * - onGet(): Validates an existing JWT token, confirming whether it is valid or not.
+ * 
+ * - onDelete(): Returns an error as this method is not supported for this endpoint.
+ * 
+ * - onPut(): Handles user login by validating the provided email and password.
+ *            Generates a new JWT token for an authenticated user.
+ * 
+ * Each method returns a structured response with a status, message, code, and optional hint to guide the client.
+ *
+ * Usage:
+ * - This endpoint is part of the `endpoints` namespace and extends a base `Endpoint` class, allowing it to integrate
+ *   with other API functionality within the system.
+ * - Requires classes from the `entities` namespace, including `UserProfile` and `JsonWebToken`.
+ *
+ * @package endpoints
+ */
 
 
 namespace endpoints;
