@@ -40,9 +40,10 @@ namespace endpoints;
 abstract class Endpoint
 {
 
-    public function handleRequest(array $parameters = array(), string $method = "",  ?string $token, bool $requires_auth = true)
+    public function handleRequest(array $parameters = array(), array $get_parameters = array(), string $method = "",  ?string $token, bool $requires_auth = true)
     {
         $this->parameters           = $parameters;
+        $this->get_parameters       = $get_parameters;
         $this->method               = strtoupper($method);
         $this->token                = $token ?? "";
 

@@ -16,8 +16,8 @@ class ZipcodestackEndpoint extends Endpoint
 
     public function onGet() : array
     {
-        $zip        = $this->parameters['zip'] ?? null;
-        $country    = $this->parameters['country'] ?? "de";
+        $zip        = $this->get_parameters['zip'] ?? null;
+        $country    = $this->get_parameters['country'] ?? "de";
 
         if(!isset($zip))
         {
