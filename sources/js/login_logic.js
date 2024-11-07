@@ -17,16 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
 // Check the entered zip code
 function checkZipCode()
 {
-    var zip         = document.getElementById("input_register_zip");
-
-    var request_parameter = {
-        zip: zip.value
-    }
-
-    var request_body = {
-        "endpoint_id": "auth",
-        "parameters": request_parameter
-    }
+    if(is_loading) return;
+    var zip         = document.getElementById("input_register_zip").value;
+    is_loading = true;
 
     fetch(api_url + "?endpoint_id=zipcodestack&zip=" + zip, {
         method: "GET",
@@ -36,11 +29,12 @@ function checkZipCode()
     })
     .then(response => response.json())
     .then(data => {
+        is_loading = false;
         if(data.status == "success")
         {
             var postalcode = data.city.postal_code;
             var city = data.city.city;
-            document.getElementById("input_register_zip").innerText = postalcode + " " + city;
+            document.getElementById("input_register_zip").value = postalcode + " " + city;
         }
         else
         {
@@ -56,7 +50,11 @@ function checkZipCode()
 // Is called when the user clicks on the register button
 function onRegister()
 {
-    if(is_loading) return;
+    if(is_loading)
+    {
+        const unicornManager =  new UnicornAlertHandler();
+        unicornManager.createAlert(UnicornAlertTypes.ERROR, "Es werden gerade Daten geladen...", 5000);
+    }
     var mail        = document.getElementById("input_register_email");
     var password    = document.getElementById("input_register_password");
     var username    = document.getElementById("input_register_username");
