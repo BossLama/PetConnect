@@ -39,11 +39,15 @@ function onRegister()
         is_loading = false;
         if(data.status == "success")
         {
-            alert("Registration successful!");
+            document.getElementById("select_pet_view").classList.remove("hidden");
+
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.INFO, 'Sie sind erfolgreich registriert', 5000);
         }
         else
         {
-            alert("Registration failed: " + data.message);
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
         }
     })
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anmelden | PetConnect</title>
     <link rel="stylesheet" href="sources/css/stylesheet_login.css">
+    <script src="sources/js/classes/UnicornAlert.js"></script>
     <script src="sources/js/classes/APIController.js"></script>
     <script src="sources/js/login_logic.js"></script>
 </head>
@@ -25,5 +26,27 @@
             </div>
         </form>
     </main>
+
+    <section class="register_detail_questions hidden" id="select_pet_view">
+        <h2>Was für ein Haustier haben Sie?</h2>
+        <div class="container">
+            <button>
+                <img src="media/icons/colored/icon_dog.png" alt="Dog">
+                <p class="title">Hund</p>
+            </button>
+            <button>
+                <img src="media/icons/colored/icon_cat.png" alt="Cat">
+                <p class="title">Katze</p>
+            </button>
+            <button>
+                <img src="media/icons/colored/icon_rabbit.png" alt="Rabbit">
+                <p class="title">Hamster</p>
+            </button>
+            <button>
+                <img src="media/icons/colored/icon_heart.png" alt="Heart">
+                <p class="title">Anderers</p>
+            </button>
+        </div>
+    </section>
 </body>
 </html>
