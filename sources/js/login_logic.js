@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("input_register_zip").value = zip;
     });
     document.getElementById("input_register_zip").addEventListener("keydown", function(event) {
+        if(event.keyCode == 32 || event.keyCode == 13)
+        {
+            event.preventDefault();
+            this.blur();
+            checkZipCode();
+        }
         if(isNaN(event.key) && event.key != "Backspace")
         {
             event.preventDefault();
@@ -46,7 +52,7 @@ function checkZipCode()
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Diese Postleitzahl kennen wir nicht', 5000);
             document.getElementById("input_register_zip").focus();
-
+            document.getElementById("input_register_zip").value = "";
         }
     })
 }
