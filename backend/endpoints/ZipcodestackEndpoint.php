@@ -39,7 +39,8 @@ class ZipcodestackEndpoint extends Endpoint
             return $response;
         }
 
-        $url = "https://api.zipcodestack.com/v1/search?codes=". $zip ."&country=". $country ."&apikey=" . ZIPCODESTACK_API_KEY;
+        $api_key = file_get_contents(ZIPCODESTACK_API_KEY);
+        $url = "http://api.zipcodestack.com/v1/search?codes=$zip&country=$country&apikey=$api_key";
         $result = file_get_contents($url);
 
         $result = json_decode($result, true);
@@ -59,7 +60,7 @@ class ZipcodestackEndpoint extends Endpoint
         $response["status"]     = "success";
         $response["message"]    = "Zip code found";
         $response["code"]       = "200";
-        $response["city"]       = $result[0];
+        $response["city"]       = $result[$zip][0];
 
         return $response;
     }

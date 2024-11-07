@@ -46,7 +46,7 @@ try
         case "zipcodestack":
             require_once "./endpoints/ZipcodestackEndpoint.php";
             $endpoint = new endpoints\ZipcodestackEndpoint();
-            $response = $endpoint->handleRequest($parameters, $_SERVER['REQUEST_METHOD'], $token, true);
+            $response = $endpoint->handleRequest($parameters, $_SERVER['REQUEST_METHOD'], $token, false);
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
