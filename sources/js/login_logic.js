@@ -5,7 +5,10 @@ function onLogin()
     var password    = document.getElementById("input_login_password");
 
     var request_body = {
-        
-    };
+        email: mail.value,
+        password: password.value
+    }
+
+    
 
 }

@@ -4,7 +4,7 @@ namespace endpoints;
 abstract class Endpoint
 {
 
-    public function handleRequest(array $parameters = array(), string $method = "",  string $token, bool $requires_auth = true)
+    public function handleRequest(array $parameters = array(), string $method = "",  ?string $token, bool $requires_auth = true)
     {
         $this->parameters           = $parameters;
         $this->method               = strtoupper($method);
@@ -16,23 +16,23 @@ abstract class Endpoint
             $response["status"]     = "error";
             $response["message"]    = "Request is not authenticated";
             $response["code"]       = "401";
-            $response["hint"]       = "Give a valid token"
+            $response["hint"]       = "Give a valid token";
             return $response;
         }
 
         switch($method)
         {
             case "POST":
-                return onPost();
+                return $this->onPost();
                 break;
             case "GET":
-                return onGet();
+                return $this->onGet();
                 break;
             case "DELETE":
-                return onDelete();
+                return $this->onDelete();
                 break;
             case "UPDATE":
-                return onUpdate();
+                return $this->onUpdate();
                 break;
             default:
                 $response               = array();
@@ -44,10 +44,10 @@ abstract class Endpoint
         }
     }
 
-    public abstract function onPost() : array;
-    public abstract function onGet() : array;
-    public abstract function onDelete() : array;
-    public abstract function onUpdate() : array;
+    abstract function onPost() : array;
+    abstract function onGet() : array;
+    abstract function onDelete() : array;
+    abstract function onUpdate() : array;
 
     
     public function authenticate(string $token)

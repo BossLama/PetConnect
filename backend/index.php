@@ -25,14 +25,24 @@ header('Content-Type: application/json');
 try
 {
     include_once "./includes/pet-config.php";
+    include_once "./endpoints/Endpoint.php";
+
     $response       = array();
     $request_body   = json_decode(file_get_contents('php://input'), true);
 
-    $endpoint_id    = $request_body["endpoint_id"];
+    $endpoint_id    = $request_body["endpoint_id"] ?? null;
     $parameters     = $request_body["parameters"] ?? array();
+    $token          = $request_body["token"] ?? null;
 
     switch($endpoint_id)
     {
+        case "auth":
+            require_once "./endpoints/AuthEndpoint.php";
+            $endpoint = new endpoints\AuthEndpoint();
+            $response = $endpoint->handleRequest($parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
+
         default: throw new Exception('Invalid endpoint id given', 400);
     }
 }
