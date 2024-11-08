@@ -25,6 +25,7 @@ header('Content-Type: application/json');
 try
 {
     include_once "./includes/pet-config.php";
+    include_once "./includes/role-management.php";
     include_once "./endpoints/Endpoint.php";
 
     $response       = array();
