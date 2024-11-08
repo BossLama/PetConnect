@@ -1,13 +1,28 @@
 <?php
 /**
  *  =================================================================================
- *  Name        :       ZipcodestackEndpoint.php
- *  Purpose     :       Entity class for the JSON Web Token
+ *  File        :       ZipcodestackEndpoint.php
+ *  Description :       Endpoint class for handling ZIP code lookups using the Zipcodestack API.
+ *                      This endpoint processes GET requests to fetch location data based on
+ *                      a provided ZIP code and country. Only GET requests are supported.
+ *                      Other request methods (POST, DELETE, PUT) return an error response.
+ *
  *  Authors     :       Jonas Riemer, Fabian Belli
- *  Last edited :       01.11.2024
- *  =================================================================================
+ *  Last Edited :       01.11.2024
  *  
-**/
+ *  Methods:
+ *      - onGet(): Handles ZIP code lookup by calling the Zipcodestack API, validates the
+ *                 API key, retrieves data for the specified ZIP code and country, and 
+ *                 returns the city if found.
+ *      - onPost(), onDelete(), onPut(): Return a "method not allowed" error.
+ *
+ *  Notes:
+ *      - Requires a defined API key constant ZIPCODESTACK_API_KEY for API requests.
+ *      - Returns JSON responses with status, message, code, and additional data or hints.
+ *
+ *  =================================================================================
+ */
+
 
 
 namespace endpoints;
