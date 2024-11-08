@@ -33,7 +33,7 @@ class ZipcodestackEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "API key not found";
+            $response["message"]    = "Ups, etwas ist schief gelaufen";
             $response["code"]       = "500";
             $response["hint"]       = "Configuration file may not be loaded";
             return $response;
@@ -50,7 +50,7 @@ class ZipcodestackEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "No results found";
+            $response["message"]    = "Die Postleitzahl wurde nicht gefunden";
             $response["code"]       = "404";
             $response["hint"]       = "Please provide a valid zip code";
             return $response;
@@ -58,7 +58,7 @@ class ZipcodestackEndpoint extends Endpoint
 
         $response               = array();
         $response["status"]     = "success";
-        $response["message"]    = "Zip code found";
+        $response["message"]    = "Postleitzahl gefunden";
         $response["code"]       = "200";
         $response["city"]       = $result[$zip][0];
 

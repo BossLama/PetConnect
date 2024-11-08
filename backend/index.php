@@ -59,7 +59,7 @@ catch(Exception $e)
 {
     $response               = array();
     $response['status']     = 'error';
-    $response['message']    = $e->getMessage();
+    $response['message']    = "Es gab einen Fehler bei der Verarbeitung.";
     $response['code']       = $e->getCode();
 
     echo json_encode($response, JSON_PRETTY_PRINT);

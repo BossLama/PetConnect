@@ -52,7 +52,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Please provide all required parameters";
+            $response["message"]    = "Bitte geben Sie alle erforderlichen Parameter an";
             $response["code"]       = "400";
             $response["hint"]       = "Please provide all required parameters";
             return $response;
@@ -63,7 +63,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "This mail is already in use";
+            $response["message"]    = "Ups, wir haben bereits einen Benutzer mit dieser E-Mail-Adresse";
             $response["code"]       = "400";
             $response["hint"]       = "User with the given email already exists";
             return $response;
@@ -81,7 +81,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Password is not secure enough. Use at least 8 characters, one number and one special character";
+            $response["message"]    = "Das Passwort muss mindestens 8 Zeichen lang sein, mindestens eine Zahl & Sonderzeichen enthalten";
             $response["code"]       = "400";
             $response["hint"]       = "Password must be at least 8 characters long and contain at least one number";
             return $response;
@@ -95,7 +95,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "User could not be created";
+            $response["message"]    = "Der Benutzer konnte unerwarteterweise nicht erstellt werden.";
             $response["code"]       = "500";
             $response["hint"]       = "User could not be found after creation";
             return $response;
@@ -106,7 +106,7 @@ class AuthEndpoint extends Endpoint
 
         $response               = array();
         $response["status"]     = "success";
-        $response["message"]    = "User created";
+        $response["message"]    = "Sie haben sich erfolgreich registriert";
         $response["code"]       = "200";
         $response["hint"]       = "User has been created";
         $response["token"]      = $token->asToken();
@@ -123,7 +123,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Token is invalid";
+            $response["message"]    = "Sie sind nicht authentifiziert";
             $response["code"]       = "400";
             $response["hint"]       = "Token is invalid";
             return $response;
@@ -131,7 +131,7 @@ class AuthEndpoint extends Endpoint
 
         $response               = array();
         $response["status"]     = "success";
-        $response["message"]    = "Token is valid";
+        $response["message"]    = "Sie sind authentifiziert";
         $response["code"]       = "200";
         $response["hint"]       = "Token is valid";
         return $response;
@@ -159,7 +159,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Your credentials are invalid";
+            $response["message"]    = "Ihre Anmeldeinformationen sind ungültig";
             $response["code"]       = "400";
             $response["hint"]       = "Please provide all required parameters";
             return $response;
@@ -172,7 +172,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Your credentials are invalid";
+            $response["message"]    = "Ihre Anmeldeinformationen sind ungültig";
             $response["code"]       = "400";
             $response["hint"]       = "User with the given email does not exist";
             return $response;
@@ -182,7 +182,7 @@ class AuthEndpoint extends Endpoint
         {
             $response               = array();
             $response["status"]     = "error";
-            $response["message"]    = "Your credentials are invalid";
+            $response["message"]    = "Ihre Anmeldeinformationen sind ungültig";
             $response["code"]       = "400";
             $response["hint"]       = "Password is incorrect";
             return $response;
@@ -193,7 +193,7 @@ class AuthEndpoint extends Endpoint
 
         $response               = array();
         $response["status"]     = "success";
-        $response["message"]    = "User authenticated";
+        $response["message"]    = "Sie haben sich erfolgreich angemeldet";
         $response["code"]       = "200";
         $response["hint"]       = "User has been authenticated";
         $response["token"]      = $token->asToken();
