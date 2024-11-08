@@ -30,12 +30,14 @@ try
 
     $response       = array();
     $request_body   = json_decode(file_get_contents('php://input'), true);
+    $request_header = getallheaders();
 
     $endpoint_id    = $request_body["endpoint_id"] ?? null;
     if($endpoint_id == null) $endpoint_id = $_GET['endpoint_id'] ?? null;
     $parameters     = $request_body["parameters"] ?? array();
     $get_parameters = $_GET;
     $token          = $request_body["token"] ?? null;
+    if($token == null) $token = $request_header["Authorization"] ?? null;
 
     switch($endpoint_id)
     {

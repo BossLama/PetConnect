@@ -82,11 +82,49 @@ class ProfileEndpoint
     // Return a method not allowed response
     public function onGet()
     {
+        $tokenString      = $this->token ?? "";
+        $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
+        if(!$token_valid)
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Sie sind nicht authentifiziert";
+            $response["code"]       = "400";
+            $response["hint"]       = "Token is invalid";
+            return $response;
+        }
+
+        $token          = \entities\JsonWebToken::fromToken($tokenString);
+        $user_id        = $token->payload["user_id"] ?? null;
+        $user           = \entities\UserProfile::findByID($user_id);
+
+        $filter = array();
+        if(isset($this->get_parameters["user_id"])) $filter = $this->get_parameters["user_id"];
+        if(isset($this->get_parameters["username"])) $filter = $this->get_parameters["username"];
+        if(isset($this->get_parameters["email"])) $filter = $this->get_parameters["email"];
+        if(isset($this->get_parameters["zip_code"])) $filter = $this->get_parameters["zip_code"];
+        if(isset($this->get_parameters["pet_type"])) $filter = $this->get_parameters["pet_type"];
+        if(isset($this->get_parameters["animal_breed"])) $filter = $this->get_parameters["animal_breed"];
+
+        $users = \entities\UserProfile::getAll();
+
+        $filtered_users = array();
+        foreach($users as $resultUser)
+        {
+            $is_in_filter = false;
+            foreach($filter as $key => $value)
+            {
+                if($resultUser[$key] == $value) $is_in_filter = true;
+            }
+            if($is_in_filter) $filtered_users[] = $resultUser;
+        }
+
         $response               = array();
-        $response["status"]     = "error";
-        $response["message"]    = "Method is not allowed";
-        $response["code"]       = "400";
-        $response["hint"]       = "Use the auth endpoint to get a user profile";
+        $response["status"]     = "success";
+        $response["message"]    = "Die Benutzerprofile wurden erfolgreich abgerufen";
+        $response["code"]       = "200";
+        $response["hint"]       = "User profiles have been retrieved";
+        $response["profiles"]   = $filtered_users;
         return $response;
     }
 }
