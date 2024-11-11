@@ -22,31 +22,22 @@
                 <input type="password" name="input_register_password" id="input_register_password" placeholder="Wähle ein sicheres Passwort">
 
                 <button type="button" id="button_register">Los gehts</button>
-                <button class="link">Ich bin schon Mitglied</button>
+                <button class="link" onclick="toggleForm()" type="button">Ich bin schon Mitglied</button>
+            </div>
+        </form>
+
+        <form id="login" class="login_form hidden">
+            <h2>Willkommen</h2>
+            <p>zurück in der PetConnect-Community</p>
+
+            <div class="inputs">
+                <input type="email" name="input_login_email" id="input_login_email" placeholder="Deine E-Mail-Adresse">
+                <input type="password" name="input_login_password" id="input_login_password" placeholder="Dein Passwort">
+
+                <button type="button" id="button_login">Los gehts</button>
+                <button class="link" onclick="toggleForm()" type="button">Ich bin kein Mitglied</button>
             </div>
         </form>
     </main>
-
-    <section class="register_detail_questions hidden" id="select_pet_view">
-        <h2>Welches Haustier haben Sie?</h2>
-        <div class="container">
-            <button>
-                <img src="media/icons/colored/icon_dog.png" alt="Dog">
-                <p class="title">Hund</p>
-            </button>
-            <button>
-                <img src="media/icons/colored/icon_cat.png" alt="Cat">
-                <p class="title">Katze</p>
-            </button>
-            <button>
-                <img src="media/icons/colored/icon_rabbit.png" alt="Rabbit">
-                <p class="title">Hamster / Hase</p>
-            </button>
-            <button>
-                <img src="media/icons/colored/icon_heart.png" alt="Heart">
-                <p class="title">Anderers</p>
-            </button>
-        </div>
-    </section>
 </body>
 </html>

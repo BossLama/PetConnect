@@ -1,8 +1,9 @@
 var is_loading = false;
 
-
+// Execute the following code when the document is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("button_register").addEventListener("click", onRegister);
+    document.getElementById("button_login").addEventListener("click", onLogin);
 
     document.getElementById("input_register_zip").addEventListener("focusout", checkZipCode);
     document.getElementById("input_register_zip").addEventListener("focusin", function() {
@@ -24,6 +25,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+
+// Switch between the login and register form
+function toggleForm()
+{
+    if(document.getElementById("register").classList.contains("hidden"))
+    {
+        document.getElementById("register").classList.remove("hidden");
+        document.getElementById("login").classList.add("hidden");
+    }
+    else
+    {
+        document.getElementById("register").classList.add("hidden");
+        document.getElementById("login").classList.remove("hidden");
+    }
+}
 
 // Check the entered zip code
 function checkZipCode()
@@ -96,8 +113,7 @@ function onRegister()
         is_loading = false;
         if(data.status == "success")
         {
-            document.getElementById("select_pet_view").classList.remove("hidden");
-
+            //TODO: Redirect to index page
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.INFO, 'Sie sind erfolgreich registriert', 5000);
         }
@@ -107,4 +123,45 @@ function onRegister()
             unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
         }
     })
+}
+
+// Login the user
+function onLogin()
+{
+    var email      = document.getElementById("input_login_email");
+    var password   = document.getElementById("input_login_password");
+
+    var request_parameter = {
+        email: email.value,
+        password: password.value,
+    }
+
+    var request_body = {
+        "endpoint_id": "auth",
+        "parameters": request_parameter
+    }
+
+    // Put request
+    fetch(api_url, {
+        method: "PUT",
+        body: JSON.stringify(request_body),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if(data.status == "success")
+        {
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.SUCCESS, "Sie sind nun angemeldet", 5000);
+            window.location.href = "index.html";
+        }
+        else
+        {
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
+        }
+    });
 }

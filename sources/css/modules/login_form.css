@@ -10,6 +10,11 @@
     backdrop-filter: blur(5px);
 }
 
+.login_form.hidden
+{
+    display: none;
+}
+
     .login_form h2
     {
         font-size: 2.5rem;
