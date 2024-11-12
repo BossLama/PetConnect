@@ -2,6 +2,7 @@
 @import url(modules/friendzone.css);
 @import url(modules/header.css);
 @import url(modules/feed.css);
+@import url(modules/feed-bar.css);
 
 body
 {
@@ -14,4 +15,6 @@ body
     main
     {
         flex: 4;
+        display: flex;
+        flex-direction: column;
     }

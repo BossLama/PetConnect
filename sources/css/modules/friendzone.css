@@ -1,10 +1,10 @@
 .friendzone
 {
-    flex: 1;
     background-color: #e3e3e3;
     padding: 2rem 1rem;
     min-width: 300px;
     overflow-y: scroll;
+    flex: 1;
 }
 
     .friendzone::-webkit-scrollbar
