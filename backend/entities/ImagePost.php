@@ -23,13 +23,12 @@
 namespace entities;
 class ImagePost
 {
-
     private $post_id;
     private $user_id;
     private $image;
     private $description;
     private $date;
-    private $status;                        // 0 = public post, 1 = friends only, 2 = private post
+    private $status;                        // 0 = all users post,  1 = public post, 2 = friends only, 3 = private post, (4 = draft)
 
     public function __construct(array $parameters)
     {
