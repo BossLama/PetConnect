@@ -7,50 +7,86 @@
     <link rel="stylesheet" href="sources/css/stylesheet_index.css">
 </head>
 <body>
+    <!-- Friendzone View-->
     <nav id="friendzone" class="friendzone">
-        <h2>In deiner Nähe</h2>
-
-        <ul>
-            <li>
-                <div class="container">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                    <div class="details">
-                        <p class="pet">Katze</p><p class="name">Max van Goth</p>
+        <div class="group">
+            <h2>In deiner Nähe</h2>
+            <ul>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Katze</p><p class="name">Max van Goth</p>
+                        </div>
                     </div>
-                </div>
-                <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-            </li>
-            <li>
-                <div class="container">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                    <div class="details">
-                        <p class="pet">Hund</p><p class="name">Fred Neuberg</p>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Hund</p><p class="name">Fred Neuberg</p>
+                        </div>
                     </div>
-                </div>
-                <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-            </li>
-            <li>
-                <div class="container">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                    <div class="details">
-                        <p class="pet">Hund</p><p class="name">Julius Maximus</p>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+            </ul>
+        </div>
+        <div class="group">
+            <h2>Ärzte bei dir</h2>
+            <ul>
+                <li>
+                    <div class="container">
+                        <img src="https://thispersondoesnotexist.com/" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Tierarzt</p><p class="name">Max van Goth</p>
+                        </div>
                     </div>
-                </div>
-                <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-            </li>
-            <li>
-                <div class="container">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                    <div class="details">
-                        <p class="pet">Katze</p><p class="name">Schwanz Longus</p>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+                <li>
+                    <div class="container">
+                        <img src="https://thispersondoesnotexist.com/" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Tierarzt</p><p class="name">Fred Neuberg</p>
+                        </div>
                     </div>
-                </div>
-                <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-            </li>
-        </ul>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+            </ul>
+        </div>
     </nav>
+    <!-- Main Content -->
     <main>
-
+        <header>
+            <button id="button_settings"><img src="media/icons/icon_dark_search.svg" alt=""></button>
+            <h1>PetConnect</h1>
+            <button id="button_profile"><img src="media/icons/icon_dark_profile.svg" alt=""></button>
+        </header>
+        <section class="feed" id="feed">
+            <div class="post">
+                <div class="header">
+                    <img src="media/images/profiles/user_4973454_example.jpg" alt="">
+                    <div class="details">
+                        <p class="group">#vermisst</p>
+                        <div class="meta">
+                            <p class="name">Grabiel Singer</p>
+                            <p class="date">vor 2 Stunden</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <p>
+                        Hallo, mein Kater ist seit gestern Abend verschwunden. Er ist schwarz und hat einen weißen Fleck auf der Brust. Er hört auf den Namen "Felix". Bitte helft mir ihn zu finden.
+                    </p>
+                </div>
+                <div class="action-bar">
+                    <button>Mitleid ausdrücken</button>
+                    <button>Antworten</button>
+                    <button>Teilen</button>
+                </div>
+            </div>
+        </section>
     </main>
 </body>
 </html>

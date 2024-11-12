@@ -1,10 +1,21 @@
 .friendzone
 {
     flex: 1;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #f0fff1;
     padding: 2rem 1rem;
     min-width: 300px;
+    overflow-y: scroll;
 }
+
+    .friendzone::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    .friendzone .group
+    {
+        margin-bottom: 3rem;
+    }
 
     .friendzone h2
     {
@@ -33,7 +44,6 @@
             padding: 0.5rem;
             background-color: #fff;
             border-radius: 0.5rem;
-            border-left: 10px solid rgba(0, 0, 0, 0.2);
             transition: transform 0.25s;
             user-select: none;
             width: 100%;
@@ -54,7 +64,7 @@
 
             .friendzone ul li .pet
             {
-                font-style: italic;
+                font-weight: 300;
                 font-size: 0.8rem;
             }
 
@@ -72,7 +82,7 @@
                 border-radius: 5rem;
                 color: #fff;
                 cursor: pointer;
-                opacity: 0.8;
+                opacity: 0.4;
                 display: flex;
                 align-items: center;
                 justify-content: center;
