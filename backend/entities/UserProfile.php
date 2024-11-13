@@ -38,7 +38,7 @@ class UserProfile
 
     public function __construct(array $parameters)
     {
-        $this->user_id    = $parameters['user_id'] ?? $this->generateUserID();             // Randomly generated user ID
+        $this->user_id    = $parameters['user_id'] ?? $this->generateUserID();      // Randomly generated user ID
         $this->username   = $parameters['username'] ?? null;                        // Username of profile (Name of the pet)
         $this->password   = $parameters['password'] ?? null;                        // Password of profile
         $this->email      = $parameters['email'] ?? null;                           // Email of profile (unique, used for login)
