@@ -57,7 +57,7 @@ class Post
 
     public function generatePostID(): string
     {
-        return $this->prefix+$this->type+$this->post_nmr;
+        return $this->prefix+$this->type+$this->post_nmr;           //TODO: post_nmr immer auf +1 setzen
     }
 
     public function generatePost(): array
