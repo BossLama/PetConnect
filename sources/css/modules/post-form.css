@@ -65,7 +65,14 @@
         border: none;
         font-weight: 600;
         font-size: 0.9rem;
+        transition: background-color 0.2s;
     }
+
+        .post-form button.button_post:disabled
+        {
+            background-color: rgba(0, 0, 0, 0.4);
+            cursor: not-allowed;
+        }
 
     .post-form .input-line
     {
