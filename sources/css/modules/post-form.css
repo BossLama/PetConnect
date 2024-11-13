@@ -66,3 +66,10 @@
         font-weight: 600;
         font-size: 0.9rem;
     }
+
+    .post-form .input-line
+    {
+        padding: 0.5rem 0;
+        opacity: 0.8;
+        user-select: none;
+    }
