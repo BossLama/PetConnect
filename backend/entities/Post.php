@@ -33,6 +33,7 @@ class Post
     private $posted_at;         //posted_at
     private $message;           //text message of the comment
     private $post_nmr;          //the part of the post ID that makes the ID unique
+    private $reply_to;          //PostID under which the reply is posted
 
 
     public function __construct (array $post)
@@ -46,6 +47,11 @@ class Post
         $this->creator = $post['creator'] ?? null;
         $this->posted_at = $post['posted_at'] ?? date('Y-m-d H:i:s');
         $this->message = $post['message'] ?? null;
+
+        if ( $this->type == 01)
+        {
+            $this->reply_to = $post['reply_to'] ?? null;
+        }
 
     }
 
@@ -75,6 +81,7 @@ class Post
     public function getLikes(): int                         {return $this->likes;}
     public function getComments(): int                      {return $this->comments;}
     public function getShares(): int                        {return $this->shares;}
+    public function getReplyTo(): int                       {return $this->reply_to;}
     // ============================ SETTER METHODS ============================
     public function setPostID($post_id): void               {$this->post_id = $post_id;}
     public function setCreator($creator): void              {$this->creator = $creator;}
@@ -83,4 +90,5 @@ class Post
     public function setLikes($likes): void                  {$this->likes = $likes;}
     public function setComments($comments): void            {$this->comments = $comments;}
     public function setShares($shares): void                {$this->shares = $shares;}
+    public function setReplyTo($reply_to): void             {$this->reply_to = $reply_to;}
 }
