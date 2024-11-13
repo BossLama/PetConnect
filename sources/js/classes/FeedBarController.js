@@ -8,7 +8,7 @@ class FeedBarController
         this.feedBar = document.createElement('div');
         this.feedBar.classList.add('feed-bar');
 
-        this.createActionButton('media/icons/icon_dark_chat.svg', 'Feed', () => this.redirect('feed.html'));
+        this.createActionButton('media/icons/icon_dark_chat.svg', 'Feed', () => this.redirect('index.html'));
         this.createActionButton('media/icons/icon_dark_map.svg', 'Map', () => this.redirect('maps.html'));
         this.createActionButton('media/icons/icon_dark_add.svg', 'Post', () => this.redirect('post.html'));
         this.createActionButton('media/icons/icon_dark_friends.svg', 'Friends', () => {});
