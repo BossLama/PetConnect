@@ -1,0 +1,20 @@
+@import url(modules/default.css);
+@import url(modules/friendzone.css);
+@import url(modules/header.css);
+@import url(modules/post-form.css);
+@import url(modules/feed-bar.css);
+
+body
+{
+    display: flex;
+    height: 100vH;
+    width: 100%;
+    background-color: #ebebeb;
+}
+
+    main
+    {
+        flex: 4;
+        display: flex;
+        flex-direction: column;
+    }

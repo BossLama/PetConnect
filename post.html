@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuer Beitrag | PetConnect</title>
+    <link rel="stylesheet" href="sources/css/stylesheet_post.css">
+</head>
+<body>
+    <!-- Friendzone View-->
+    <nav id="friendzone" class="friendzone hidden">
+        <div class="group">
+            <h2>In deiner Nähe</h2>
+            <ul>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Katze</p><p class="name">Max van Goth</p>
+                        </div>
+                    </div>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
+                        <div class="details">
+                            <p class="pet">Hund</p><p class="name">Fred Neuberg</p>
+                        </div>
+                    </div>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+            </ul>
+        </div>
+        <div class="group">
+            <h2>Ärzte bei dir</h2>
+            <ul>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="">
+                        <div class="details">
+                            <p class="pet">Tierarzt</p><p class="name">Max van Goth</p>
+                        </div>
+                    </div>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+                <li>
+                    <div class="container">
+                        <img src="media/images/profiles/user_4973454_example.jpg" alt="">
+                        <div class="details">
+                            <p class="pet">Tierarzt</p><p class="name">Fred Neuberg</p>
+                        </div>
+                    </div>
+                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main>
+        <header>
+            <button id="button_settings"><img src="media/icons/icon_dark_search.svg" alt=""></button>
+            <h1>PetConnect</h1>
+            <button id="button_profile"><img src="media/icons/icon_dark_profile.svg" alt=""></button>
+        </header>
+        <section class="post-form" id="post_form">
+            <div class="header">
+                <img src="media/images/profiles/user_4973454_example.jpg" alt="">
+                <div class="line">
+                    <p class="name">Max Mustermann</p>
+                    <div class="selects">
+                        <select name="input_post_visible" id="input_post_visible">
+                            <option value="0">Privat</option>
+                            <option value="1">Freunde</option>
+                            <option value="2">Kommune</option>
+                            <option value="3">Alle</option>
+                        </select>
+
+                        <select name="input_post_category" id="input_post_category">
+                            <option value="0">Post</option>
+                            <option value="1">Event</option>
+                            <option value="2">Vermisst</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <textarea name="input_post_text" id="input_post_text" placeholder="Was machst du gerade?"></textarea>
+            <button class="button_post">Posten</button>
+        </section>
+        </section>
+        <div class="feed-bar">
+            <button><img src="media/icons/icon_dark_chat.svg" alt="Feed"></button>
+            <button><img src="media/icons/icon_dark_map.svg" alt="Map"></button>
+            <button><img src="media/icons/icon_dark_add.svg" alt="Post" class="primary"></button>
+            <button><img src="media/icons/icon_dark_friends.svg" alt="Friends"></button>
+            <button><img src="media/icons/icon_dark_profile.svg" alt="Profile"></button>
+        </div>
+    </main>
+    <nav class="friendzone">
+        
+    </nav>
+</body>
+</html>
