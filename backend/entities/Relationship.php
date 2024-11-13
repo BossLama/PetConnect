@@ -31,8 +31,8 @@ class Relationship
 
     public function __construct(array $parameters)
     {
-        $this->relation_id      = $parameters["relation_id"];                         // ID of relationship
-        $this->status           = $parameters['status'] ?? 1;                             // Status of the profile (0 = blocked, 1 = pending)
+        $this->relation_id      = $parameters["relation_id"];                             // ID of relationship
+        $this->status           = $parameters['status'] ?? 1;                             // Status of the profile (0 = blocked, 1 = pending, 2 = friends)
         $this->date             = $parameters['date'] ?? date('Y-m-d H:i:s');     // Date of last relationsship update between users
         $this->from_user        = $parameters['from_user'] ?? null;                       // Sender of the request / blocker
         $this->to_user          = $parameters['to_user'] ?? null;                         // recipent of the request / blocked user
