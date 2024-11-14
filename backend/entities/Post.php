@@ -34,6 +34,8 @@ class Post
     private $message;           //text message of the comment
     private $post_nmr;          //the part of the post ID that makes the ID unique
     private $reply_to;          //PostID under which the reply is posted
+    private $related_image_id;  //Related Image
+    private $related_meetup_id; //Related Meetup
 
     //TODO: related_image_id
     //TODO: related_meetup_id
@@ -50,6 +52,8 @@ class Post
         $this->creator = $post['creator'] ?? null;
         $this->posted_at = $post['posted_at'] ?? date('Y-m-d H:i:s');
         $this->message = $post['message'] ?? null;
+        $this->related_image_id = $post['related_image_id'] ?? null;
+        $this->related_meetup_id = $post['related_meetup_id'] ?? null;
 
         if ( $this->type == 01)
         {
@@ -61,8 +65,7 @@ class Post
     public function generatePostID(): string
     {
         $id = md5(uniqid(rand(), true));
-        //TODO: createid
-        return $this->prefix+$this->type+$this->post_nmr;
+        return $this->prefix+$this->type+$this->$id;
     }
 
     public function generatePost(): array
@@ -74,9 +77,13 @@ class Post
             'message'=> $this->message,
             'likes' => 0,
             'comments' => 0,
-            'shares' => 0
+            'shares' => 0,
+            'related_image_id'=> $this->related_image_id,
+            'related_meetup_id'=> $this->related_meetup_id
         );
     }
+
+    //TODO: Delete Post
 
     // ============================ GETTER METHODS ============================
     public function getPostID(): int                        {return $this->post_id;}
