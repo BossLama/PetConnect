@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neuer Beitrag | PetConnect</title>
     <link rel="stylesheet" href="sources/css/stylesheet_post.css">
+    <!-- Javascript -->
+    <script src="sources/js/classes/APIController.js"></script>
+    <script src="sources/js/classes/ProfileManager.js"></script>
+    <script src="sources/js/classes/FeedBarController.js"></script>
+    <script src="sources/js/post_logic.js"></script>
 </head>
 <body>
     <!-- Friendzone View-->
@@ -58,16 +63,11 @@
     </nav>
     <!-- Main Content -->
     <main>
-        <header>
-            <button id="button_settings"><img src="media/icons/icon_dark_search.svg" alt=""></button>
-            <h1>PetConnect</h1>
-            <button id="button_profile"><img src="media/icons/icon_dark_profile.svg" alt=""></button>
-        </header>
         <section class="post-form" id="post_form">
             <div class="header">
                 <img src="media/images/profiles/user_4973454_example.jpg" alt="">
                 <div class="line">
-                    <p class="name">Max Mustermann</p>
+                    <p class="name username-label">Loading</p>
                     <div class="selects">
                         <select name="input_post_visible" id="input_post_visible">
                             <option value="0">Privat</option>
@@ -77,7 +77,7 @@
                         </select>
 
                         <select name="input_post_category" id="input_post_category">
-                            <option value="0">Post</option>
+                            <option value="0">Beitrag</option>
                             <option value="1">Event</option>
                             <option value="2">Vermisst</option>
                         </select>
@@ -85,16 +85,8 @@
                 </div>
             </div>
             <textarea name="input_post_text" id="input_post_text" placeholder="Was machst du gerade?"></textarea>
-            <button class="button_post">Posten</button>
+            <button class="button_post" id="button_submit"disabled>Posten</button>
         </section>
-        </section>
-        <div class="feed-bar">
-            <button><img src="media/icons/icon_dark_chat.svg" alt="Feed"></button>
-            <button><img src="media/icons/icon_dark_map.svg" alt="Map"></button>
-            <button><img src="media/icons/icon_dark_add.svg" alt="Post" class="primary"></button>
-            <button><img src="media/icons/icon_dark_friends.svg" alt="Friends"></button>
-            <button><img src="media/icons/icon_dark_profile.svg" alt="Profile"></button>
-        </div>
     </main>
     <nav class="friendzone">
         

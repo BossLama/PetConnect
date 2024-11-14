@@ -35,6 +35,9 @@ class Post
     private $post_nmr;          //the part of the post ID that makes the ID unique
     private $reply_to;          //PostID under which the reply is posted
 
+    //TODO: related_image_id
+    //TODO: related_meetup_id
+
 
     public function __construct (array $post)
     {
@@ -57,7 +60,9 @@ class Post
 
     public function generatePostID(): string
     {
-        return $this->prefix+$this->type+$this->post_nmr;           //TODO: post_nmr immer auf +1 setzen
+        $id = md5(uniqid(rand(), true));
+        //TODO: createid
+        return $this->prefix+$this->type+$this->post_nmr;
     }
 
     public function generatePost(): array

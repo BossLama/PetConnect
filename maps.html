@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karte | PetConnect</title>
+    <link rel="stylesheet" href="sources/css/stylesheet_map.css">
+    <!-- MapView -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <!-- Custom JS -->
+    <script src="sources/js/classes/APIController.js"></script>
+    <script src="sources/js/classes/ProfileManager.js"></script>
+    <script src="sources/js/classes/FeedBarController.js"></script>
+    <script src="sources/js/classes/MapView.js"></script>
+    <script src="sources/js/index_map.js"></script>
+</head>
+<body>
+    <div class="friendzone">
+        <div class="group">
+            <h2>Aktuelle MeetUps</h2>
+        </div>
+    </div>
+    <main>
+        <section id="map" class="map-view"></section>
+    </main>
+    <div class="friendzone">
+        <div class="group">
+            <h2>Ärzte & Kliniken</h2>
+        </div>
+    </div>
+</body>
+</html>
