@@ -50,7 +50,10 @@ class ProfileManager
 
     renderProfileData(user)
     {
-
+        let usernameLabels = document.querySelectorAll('.username-label');
+        usernameLabels.forEach(label => {
+            label.innerHTML = user.username;
+        });
     }
 }
 
