@@ -35,7 +35,9 @@ class JsonWebToken
 
     public function asToken()
     {
-        $token = base64_encode($this->header) . "." . base64_encode($this->payload) . "." . $this->signature;
+        $jHeader = json_encode($this->header);
+        $jPayload = json_encode($this->payload);
+        $token = self::encodeBase64URL($jHeader) . "." . self::encodeBase64URL($jPayload) . "." . $this->signature;
         return $token;
     }
 
@@ -57,8 +59,8 @@ class JsonWebToken
             'exp' => time() + 3600
         ];
 
-        $header = base64_encode(json_encode($header));
-        $payload = base64_encode(json_encode($payload));
+        $header = json_encode($header);
+        $payload = json_encode($payload);
 
 
         if (!file_exists(JWT_SECRET_FILE))
@@ -68,6 +70,9 @@ class JsonWebToken
             file_put_contents(JWT_SECRET_FILE, $secret);
         }
         $signature = hash_hmac('sha256', $header . "." . $payload, file_get_contents(JWT_SECRET_FILE));
+
+        $header = json_decode($header, true);
+        $payload = json_decode($payload, true);
 
         return new JsonWebToken(['header' => $header, 'payload' => $payload, 'signature' => $signature]);
     }
@@ -82,26 +87,38 @@ class JsonWebToken
         $payload = $parts[1];
         $signature = $parts[2];
 
-        $header = json_decode(base64_decode($header), true);
-        $payload = json_decode(base64_decode($payload), true);
+        $header = self::decodeBase64URL($header);
+        $payload = self::decodeBase64URL($payload);
 
-        if($header['alg'] != 'HS256') return false;
+        $signature_check = hash_hmac('sha256', $header . "." . $payload, file_get_contents(JWT_SECRET_FILE));
 
-        $expectedSignature = hash_hmac('sha256', $parts[0] . "." . $parts[1], file_get_contents(JWT_SECRET_FILE));
-        if($signature != $expectedSignature) return false;
-        if($payload['exp'] < time()) return false;
+        $payload = json_decode($payload, true);
+        $exp = $payload['exp'] ?? 0;
 
-        return true;
+        if($exp < time()) return false;
+
+        return $signature == $signature_check;        
     }
 
     public static function fromToken($token)
     {
         if(self::verifyToken($token) == false) return null;
         $parts = explode(".", $token);
-        $header = json_decode(base64_decode($parts[0]), true);
-        $payload = json_decode(base64_decode($parts[1]), true);
+        $header = json_decode(self::decodeBase64URL($parts[0]), true);
+        $payload = json_decode(self::decodeBase64URL($parts[1]), true);
         $signature = $parts[2];
         return new JsonWebToken(['header' => $header, 'payload' => $payload, 'signature' => $signature]);
+    }
+
+
+    private static function encodeBase64URL($data)
+    {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
+
+    private static function decodeBase64URL($data)
+    {
+        return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     }
 
 }

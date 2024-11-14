@@ -54,6 +54,13 @@ try
             $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
+        
+        case "profile":
+            require_once "./endpoints/ProfileEndpoint.php";
+            $endpoint = new endpoints\ProfileEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
 
         default: throw new Exception('Invalid endpoint \''. $endpoint_id .'\' id given', 400);
     }

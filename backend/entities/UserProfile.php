@@ -179,7 +179,8 @@ class UserProfile
         }
 
         $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
-        return $users[$userID] ?? null;
+        if(!isset($users[$userID])) return null;
+        return new UserProfile($users[$userID]);
     }
 
     public static function findByEmail($email)

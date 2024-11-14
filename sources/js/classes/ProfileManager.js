@@ -26,4 +26,40 @@ class ProfileManager
     {
         localStorage.removeItem('authToken');
     }
+
+    getProfileData(callback)
+    {
+        fetch(api_url + "?endpoint_id=profile", {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': this.getAuthToken()
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                callback(data.data);
+            } else {
+                console.error(data.message);
+                console.log(data);
+            }
+        })
+    }
+
+
+    renderProfileData(user)
+    {
+
+    }
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    let profileManager = new ProfileManager();
+    if(!profileManager.hasAuthToken()) return;
+
+    profileManager.getProfileData(function(data) {
+        profileManager.renderProfileData(data);
+    });
+});

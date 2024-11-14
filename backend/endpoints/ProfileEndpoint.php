@@ -1,11 +1,11 @@
 <?php
 
 namespace endpoints;
-class ProfileEndpoint
+class ProfileEndpoint extends Endpoint
 {
 
     // Return a method not allowed response
-    public function onPost()
+    public function onPost() : array
     {
         $response               = array();
         $response["status"]     = "error";
@@ -16,7 +16,7 @@ class ProfileEndpoint
     }
 
     // Update an existing user profile
-    public function onPut()
+    public function onPut() : array
     {
         $tokenString      = $this->token ?? "";
         $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
@@ -69,7 +69,7 @@ class ProfileEndpoint
     }
 
     // Return a method not allowed response
-    public function onDelete()
+    public function onDelete() : array
     {
         $response               = array();
         $response["status"]     = "error";
@@ -80,10 +80,15 @@ class ProfileEndpoint
     }
 
     // Return a method not allowed response
-    public function onGet()
+    public function onGet() : array
     {
+
+        require_once "./entities/JsonWebToken.php";
+        require_once "./entities/UserProfile.php";
+
         $tokenString      = $this->token ?? "";
         $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
+
         if(!$token_valid)
         {
             $response               = array();
@@ -91,40 +96,24 @@ class ProfileEndpoint
             $response["message"]    = "Sie sind nicht authentifiziert";
             $response["code"]       = "400";
             $response["hint"]       = "Token is invalid";
+            $response["token"]      = $tokenString;
+
             return $response;
         }
 
         $token          = \entities\JsonWebToken::fromToken($tokenString);
         $user_id        = $token->payload["user_id"] ?? null;
         $user           = \entities\UserProfile::findByID($user_id);
-
-        $filter = array();
-        if(isset($this->get_parameters["user_id"])) $filter = $this->get_parameters["user_id"];
-        if(isset($this->get_parameters["username"])) $filter = $this->get_parameters["username"];
-        if(isset($this->get_parameters["email"])) $filter = $this->get_parameters["email"];
-        if(isset($this->get_parameters["zip_code"])) $filter = $this->get_parameters["zip_code"];
-        if(isset($this->get_parameters["pet_type"])) $filter = $this->get_parameters["pet_type"];
-        if(isset($this->get_parameters["animal_breed"])) $filter = $this->get_parameters["animal_breed"];
-
-        $users = \entities\UserProfile::getAll();
-
-        $filtered_users = array();
-        foreach($users as $resultUser)
-        {
-            $is_in_filter = false;
-            foreach($filter as $key => $value)
-            {
-                if($resultUser[$key] == $value) $is_in_filter = true;
-            }
-            if($is_in_filter) $filtered_users[] = $resultUser;
-        }
+        
+        $user->setPassword(null);
 
         $response               = array();
         $response["status"]     = "success";
-        $response["message"]    = "Die Benutzerprofile wurden erfolgreich abgerufen";
+        $response["message"]    = "Benutzerprofil wurde gefunden";
         $response["code"]       = "200";
-        $response["hint"]       = "User profiles have been retrieved";
-        $response["profiles"]   = $filtered_users;
+        $response["hint"]       = "User profile found";
+        $response["data"]       = $user->asArray();
+
         return $response;
     }
 }

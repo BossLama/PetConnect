@@ -191,6 +191,9 @@ class AuthEndpoint extends Endpoint
         require_once "./entities/JsonWebToken.php";
         $token = \entities\JsonWebToken::create($user);
 
+        $user->setLastLogin($token->payload["iat"]);
+        $user->save();
+
         $response               = array();
         $response["status"]     = "success";
         $response["message"]    = "Sie haben sich erfolgreich angemeldet";
