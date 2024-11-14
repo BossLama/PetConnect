@@ -47,6 +47,25 @@ class ProfileManager
         })
     }
 
+    getUserLocation(callback)
+    {
+        this.getProfileData((data) => {
+            let zip = data.zip_code.split(' ')[0];
+            fetch(api_url + "?endpoint_id=zipcodestack&zip=" + zip, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status == "success")
+                {
+                    callback([data.city.latitude, data.city.longitude]);
+                }
+            })
+        });
+    }
 
     renderProfileData(user)
     {
@@ -60,9 +79,18 @@ class ProfileManager
 
 document.addEventListener('DOMContentLoaded', function() {
     let profileManager = new ProfileManager();
-    if(!profileManager.hasAuthToken()) return;
+    if(!profileManager.hasAuthToken())
+    {
+        if(window.location.pathname !== '/login.html')
+        {
+            window.location.href = '/login.html';
+        }
+        return;
+    }
 
     profileManager.getProfileData(function(data) {
         profileManager.renderProfileData(data);
     });
+
+    profileManager.getUserLocation((location) => console.log(location));
 });

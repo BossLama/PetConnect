@@ -160,7 +160,7 @@ class UserProfile
 
         return json_decode(file_get_contents(USER_STORAGE_FILE), true);
     }
-
+    
 
     public static function findByID($userID)
     {

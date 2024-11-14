@@ -1,4 +1,5 @@
 var mapView = null;
+var locationMarker = null;
 
 // Init the mapView
 function constructMap(lat, lon)
@@ -7,9 +8,16 @@ function constructMap(lat, lon)
     L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 19
     }).addTo(mapView);
+}
 
-    addEvent("Test", lat, lon);
-    addClinic("Test", lat + 0.001, lon + 0.001);
+function setMapLocation(lat, lon)
+{
+    mapView.setView([lat, lon], 16);
+    if(locationMarker)
+    {
+        mapView.removeLayer(locationMarker);
+    }
+    locationMarker = L.marker([lat, lon]).addTo(mapView);
 }
 
 function addEvent(name, lat, lon) {
