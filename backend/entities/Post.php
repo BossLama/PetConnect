@@ -63,7 +63,7 @@ class Post
         return md5(uniqid(rand(), true));
     }
 
-    public function generatePost(): array
+    public function toArray(): array
     {
         return array(
             'post_id'               => $this->post_id,
@@ -98,9 +98,48 @@ class Post
     //TODO: Save Post
     //TODO: Delete Post
     //TODO: hasLiked(userID)
-    //TODO: static --> findByID
     //TODO: static --> findByCreator
 
+
+    public static function findByID($post_id)
+    {
+        if(!defined('POST_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'Posts storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(POST_STORAGE_FILE))
+        {
+            file_put_contents(POST_STORAGE_FILE, json_encode(array()));
+        }
+
+        $posts = json_decode(file_get_contents(POST_STORAGE_FILE), true);
+        if(!isset($posts[$post_id])) return null;
+        return new Post($posts[$post_id]);
+    }
+
+    public static function getAll()
+    {
+        if(!defined('POST_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'Posts storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(POST_STORAGE_FILE))
+        {
+            file_put_contents(POST_STORAGE_FILE, json_encode(array()));
+        }
+
+        return json_decode(file_get_contents(POST_STORAGE_FILE), true);
+    }
 
     // ============================ GETTER METHODS ============================
     public function getPostID(): int                        {return $this->post_id;}
