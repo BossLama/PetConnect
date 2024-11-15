@@ -96,12 +96,45 @@ class PostEndpoint extends Endpoint
 
     public function onPost() : array
     {
-        $response               = array();
-        $response["status"]     = "error";
-        $response["message"]    = "Method is not allowed";
-        $response["code"]       = "400";
-        $response["hint"]       = "Please use a valid request method";
-        return $response;
+        $tokenString      = $this->token ?? "";
+        $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
+        if(!$token_valid)
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Sie sind nicht authentifiziert";
+            $response["code"]       = "400";
+            $response["hint"]       = "Token is invalid";
+            return $response;
+        }
+
+        $token_valid = \entities\JsonWebToken::fromToken($tokenString);
+        $token_payload = $token_valid->payload;
+
+        $visibility         = $this->parameters['visibility'] ?? 0;
+        $type               = 0;
+        $creator            = $token_payload['user_id'];
+        $message           = $this->parameters['message'] ?? "";
+
+        if($message == "" || strlen($message) < 10)
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Bitte geben Sie einen Text von min. 10 Zeichen an";
+            $response["code"]       = "400";
+            $response["hint"]       = "Please provide a message";
+            return $response;
+        }
+
+        require_once "./entities/Post.php";
+        $post = new \entities\Post(array(
+            'visibility'    => $visibility,
+            'type'          => $type,
+            'creator'       => $creator,
+            'message'       => $message
+        ));
+        $post->save();
+
     }
 
     public function onDelete() : array

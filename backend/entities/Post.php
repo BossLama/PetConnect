@@ -95,7 +95,27 @@ class Post
         return true;
     }
 
-    //TODO: Save Post
+    public function save()
+    {
+        if(!defined('POST_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'Posts storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(POST_STORAGE_FILE))
+        {
+            file_put_contents(POST_STORAGE_FILE, json_encode(array()));
+        }
+
+        $posts = json_decode(file_get_contents(POST_STORAGE_FILE), true);
+        $posts[$this->post_id] = $this->toArray();
+        file_put_contents(POST_STORAGE_FILE, json_encode($posts));
+    }
+
     //TODO: Delete Post
     //TODO: hasLiked(userID)
     //TODO: static --> findByCreator
