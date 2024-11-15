@@ -37,6 +37,7 @@ function createPost()
     var input_visiblitity   = document.getElementById('input_post_visible');
     var input_category      = document.getElementById("input_post_category");
     var input_text          = document.getElementById('input_post_text');
+    var input_post_image    = document.getElementById('input_post_image');  
 
     var parameters = {
         "visibility"    : input_visiblitity.value,
@@ -44,6 +45,25 @@ function createPost()
         "message"       : input_text.value
     }
 
+    if(input_post_image.files.length > 0)
+    {
+        var file = input_post_image.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+            parameters["image"] = reader.result;
+            sendPost(parameters);
+        }
+    }
+    else
+    {
+        sendPost(parameters);
+    }
+}
+
+// Send the post to the server
+function sendPost(parameters)
+{
     var body = {
         "endpoint_id"   : "post",
         "parameters"    : parameters

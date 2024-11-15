@@ -116,7 +116,9 @@ class PostEndpoint extends Endpoint
         $visibility         = $this->parameters['visibility'] ?? 0;
         $type               = 0;
         $creator            = $token_payload['user_id'];
-        $message           = $this->parameters['message'] ?? "";
+        $message            = $this->parameters['message'] ?? "";
+        $image              = $this->parameters['image'] ?? null;
+        $related_image_id   = null;
 
         if($message == "" || strlen($message) < 10)
         {
@@ -128,12 +130,21 @@ class PostEndpoint extends Endpoint
             return $response;
         }
 
+        if(isset($image))
+        {
+            if(is_dir(IMAGE_STORAGE_FOLDER) == false) mkdir(IMAGE_STORAGE_FOLDER, 0700, true);
+            $related_image_id = md5(uniqid(rand(), true));
+            $imagePath = IMAGE_STORAGE_FOLDER . $related_image_id . ".image";
+            file_put_contents($imagePath, base64_decode($image));
+        }
+
         require_once "./entities/Post.php";
         $post = new \entities\Post(array(
             'visibility'    => $visibility,
             'type'          => $type,
             'creator'       => $creator,
-            'message'       => $message
+            'message'       => $message,
+            'related_image_id' => $related_image_id
         ));
         $post->save();
 
