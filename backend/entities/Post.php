@@ -113,7 +113,7 @@ class Post
 
         $posts = json_decode(file_get_contents(POST_STORAGE_FILE), true);
         $posts[$this->post_id] = $this->toArray();
-        file_put_contents(POST_STORAGE_FILE, json_encode($posts));
+        file_put_contents(POST_STORAGE_FILE, json_encode($posts, JSON_PRETTY_PRINT));
     }
 
     //TODO: Delete Post

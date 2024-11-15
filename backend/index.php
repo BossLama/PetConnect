@@ -61,6 +61,13 @@ try
             $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
+        
+        case "post":
+            require_once "./endpoints/PostEndpoint.php";
+            $endpoint = new endpoints\PostEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
 
         default: throw new Exception('Invalid endpoint \''. $endpoint_id .'\' id given', 400);
     }
@@ -70,6 +77,9 @@ catch(Exception $e)
     $response               = array();
     $response['status']     = 'error';
     $response['message']    = "Es gab einen Fehler bei der Verarbeitung.";
+    $response['hint']       = $e->getMessage();
+    $response['line']       = $e->getLine();
+    $response['file']       = $e->getFile();
     $response['code']       = $e->getCode();
 
     echo json_encode($response, JSON_PRETTY_PRINT);

@@ -31,6 +31,7 @@ class PostEndpoint extends Endpoint
 
     public function onGet() : array
     {
+        require_once "./entities/JsonWebToken.php";
         $tokenString      = $this->token ?? "";
         $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
         if(!$token_valid)
@@ -96,6 +97,7 @@ class PostEndpoint extends Endpoint
 
     public function onPost() : array
     {
+        require_once "./entities/JsonWebToken.php";
         $tokenString      = $this->token ?? "";
         $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
         if(!$token_valid)
@@ -135,6 +137,12 @@ class PostEndpoint extends Endpoint
         ));
         $post->save();
 
+        $response               = array();
+        $response["status"]     = "success";
+        $response["message"]    = "Post wurde erstellt";
+        $response["code"]       = "200";
+        $response["hint"]       = "Post has been created";
+        return $response;
     }
 
     public function onDelete() : array
