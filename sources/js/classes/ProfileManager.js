@@ -81,9 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let profileManager = new ProfileManager();
     if(!profileManager.hasAuthToken())
     {
-        if(window.location.pathname !== '/login.html')
+        if(!window.location.pathname.includes('login.html'))
         {
-            window.location.href = '/login.html';
+            window.location.href = './login.html';
         }
         return;
     }
