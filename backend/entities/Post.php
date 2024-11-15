@@ -23,37 +23,33 @@ namespace entities;
 class Post
 {
     //Class properties
-    private $prefix;            //prefixes are used to define the eligble usergroup who can see this post (00 = private,  01 = friends, 02 = everyone)
-    private $type;              //the type of the post (00 = normal post, 01 = comment)
-    private $post_id;           //Unique Post ID to identify a post
-    private $shares;            //how often a post was shared
-    private $likes;             //how often a post was liked
-    private $comments;          //how often a post was commented
-    private $creator;           //user_id
-    private $posted_at;         //posted_at
-    private $message;           //text message of the comment
-    private $post_nmr;          //the part of the post ID that makes the ID unique
-    private $reply_to;          //PostID under which the reply is posted
-    private $related_image_id;  //Related Image
-    private $related_meetup_id; //Related Meetup
-
-    //TODO: related_image_id
-    //TODO: related_meetup_id
+    private $post_id;           // Unique Post ID to identify a post
+    private $visibility;        // visibility of post (0 = private,  1 = friends, 2 = community, 3 = public)
+    private $type;              // the type of the post (0 = normal post, 1 = comment)
+    private $shares;            // how often a post was shared
+    private $likes;             // how often a post was liked
+    private $comments;          // how often a post was commented
+    private $creator;           // user_id
+    private $posted_at;         // posted_at
+    private $message;           // text message of the comment
+    private $reply_to;          // PostID under which the reply is posted
+    private $related_image_id;  // Related Image
+    private $related_meetup_id; // Related Meetup
 
 
     public function __construct (array $post)
     {
-        $this->prefix = $post['prefix'] ?? 00;
-        $this->type = $post['type'] ?? 00;
-        $this->post_nmr = $post['post_nmr'] ?? null;
-        $this->shares = $post['shares'] ?? 0;
-        $this->likes = $post['likes'] ?? 0;
-        $this->comments = $post['comment'] ?? 0;
-        $this->creator = $post['creator'] ?? null;
-        $this->posted_at = $post['posted_at'] ?? date('Y-m-d H:i:s');
-        $this->message = $post['message'] ?? null;
-        $this->related_image_id = $post['related_image_id'] ?? null;
-        $this->related_meetup_id = $post['related_meetup_id'] ?? null;
+        $this->post_id              = $post['post_id'] ?? $this->generatePostID();
+        $this->visibility           = $post['visibility'] ?? 0;
+        $this->type                 = $post['type'] ?? 0;
+        $this->shares               = $post['shares'] ?? [];
+        $this->likes                = $post['likes'] ?? [];
+        $this->comments             = $post['comment'] ?? [];
+        $this->creator              = $post['creator'] ?? null;
+        $this->posted_at            = $post['posted_at'] ?? date('Y-m-d H:i:s');
+        $this->message              = $post['message'] ?? null;
+        $this->related_image_id     = $post['related_image_id'] ?? null;
+        $this->related_meetup_id    = $post['related_meetup_id'] ?? null;
 
         if ( $this->type == 01)
         {
@@ -64,26 +60,47 @@ class Post
 
     public function generatePostID(): string
     {
-        $id = md5(uniqid(rand(), true));
-        return $this->prefix+$this->type+$this->$id;
+        return md5(uniqid(rand(), true));
     }
 
     public function generatePost(): array
     {
         return array(
-            'post_id'=> $this->generatePostID(),
-            'creator'=> $this->creator,
-            'posted_at'=> $this->posted_at,
-            'message'=> $this->message,
-            'likes' => 0,
-            'comments' => 0,
-            'shares' => 0,
-            'related_image_id'=> $this->related_image_id,
-            'related_meetup_id'=> $this->related_meetup_id
+            'post_id'               => $this->post_id,
+            'visibility'            => $this->visibility,
+            'type'                  => $this->type,
+            'shares'                => $this->shares,
+            'likes'                 => $this->likes,
+            'comments'              => $this->comments,
+            'creator'               => $this->creator,
+            'posted_at'             => $this->posted_at,
+            'message'               => $this->message,
+            'reply_to'              => $this->reply_to,
+            'related_image_id'      => $this->related_image_id,
+            'related_meetup_id'     => $this->related_meetup_id
         );
     }
 
+    public function canSee($userID)
+    {
+        if ($this->visibility == 0) return $this->creator == $userID;
+        if ($this->visibility == 1) return $this->creator == $userID; //TODO: Check if user is friend;
+        if ($this->visibility == 2)
+        {
+            require_once "./entities/UserProfile.php";
+            $owner = UserProfile::findByID($this->creator);
+            $target = UserProfile::findByID($userID);
+            return $owner->getZipCode() == $target->getZipCode();
+        }
+        return true;
+    }
+
+    //TODO: Save Post
     //TODO: Delete Post
+    //TODO: hasLiked(userID)
+    //TODO: static --> findByID
+    //TODO: static --> findByCreator
+
 
     // ============================ GETTER METHODS ============================
     public function getPostID(): int                        {return $this->post_id;}
