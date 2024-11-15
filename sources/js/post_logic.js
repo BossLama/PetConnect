@@ -1,5 +1,6 @@
 let textarea_description = null;
 let button_submit = null;
+let loading = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     textarea_description = document.getElementById('input_post_text');
@@ -30,7 +31,7 @@ function createPost()
     if(!checkCanSubmit())
     {
         const unicornManager =  new UnicornAlertHandler();
-        unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Schreibe einen Post mit min. 10 Zeichen.', 5000);
+        unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Schreibe einen Beitrag mit min. 10 Zeichen.', 5000);
         return;
     }
 
@@ -64,6 +65,15 @@ function createPost()
 // Send the post to the server
 function sendPost(parameters)
 {
+
+    if(loading)
+    {
+        const unicornManager =  new UnicornAlertHandler();
+        unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Bitte warte bis der vorherige Beitrag gesendet wurde.', 5000);
+        return;
+    }
+    loading = true;
+
     var body = {
         "endpoint_id"   : "post",
         "parameters"    : parameters
@@ -79,7 +89,22 @@ function sendPost(parameters)
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        alert(data.message);
-    });
+        if(data.status == "success")
+        {
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.INFO, 'Dein Beitrag wurde erfolgreich erstellt.', 5000);
+            window.location.href = 'index.html';
+        }
+        else
+        {
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
+        }
+        loading = false;
+    })
+    .catch((error) => {
+        loading = false;
+        const unicornManager =  new UnicornAlertHandler();
+        unicornManager.createAlert(UnicornAlertTypes.ERROR, 'Beim Erstellen des Beitrags ist ein Fehler aufgetreten.', 5000);
+    })
 }
