@@ -74,9 +74,9 @@ class AuthEndpoint extends Endpoint
         $user_data["password"]  = $password;
         $user_data["zip_code"]  = $zip;
 
-        $four_digit_id = rand(1000, 9999);
-        $user_data["username"]  = $username . ":" . $four_digit_id;
-
+        //$four_digit_id = rand(1000, 9999);
+        //$user_data["username"]  = $username . ":" . $four_digit_id;
+        $user_data["username"]  = $username;
 
         $user = new \entities\UserProfile($user_data);
 
