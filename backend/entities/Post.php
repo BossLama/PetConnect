@@ -83,9 +83,9 @@ class Post
 
     public function canSee($userID)
     {
-        if ($this->visibility == 0) return $this->creator == $userID;
-        if ($this->visibility == 1) return $this->creator == $userID; //TODO: Check if user is friend;
-        if ($this->visibility == 2)
+        if ($this->visibility == "0") return $this->creator == $userID;
+        if ($this->visibility == "1") return $this->creator == $userID; //TODO: Check if user is friend;
+        if ($this->visibility == "2")
         {
             require_once "./entities/UserProfile.php";
             $owner = UserProfile::findByID($this->creator);
@@ -158,7 +158,14 @@ class Post
             file_put_contents(POST_STORAGE_FILE, json_encode(array()));
         }
 
-        return json_decode(file_get_contents(POST_STORAGE_FILE), true);
+        $posts = json_decode(file_get_contents(POST_STORAGE_FILE), true);
+        $all_posts = array();
+        foreach($posts as $post)
+        {
+            $all_posts[] = new Post($post);
+        }
+
+        return $all_posts;
     }
 
     // ============================ GETTER METHODS ============================

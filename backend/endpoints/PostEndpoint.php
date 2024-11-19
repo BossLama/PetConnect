@@ -81,17 +81,19 @@ class PostEndpoint extends Endpoint
         {
             if($post->canSee($token_payload['user_id']))
             {
-                $filtered_posts[] = $post;
+                $filtered_posts[] = $post->toArray();
             }
         }
 
-        $posts = array_slice($filtered_posts, $min, $limit);
+        $max = $min + $limit;
+        if($max > count($filtered_posts)) $max = count($filtered_posts);
+        $filtered_posts = array_slice($filtered_posts, $min, $max);
 
         $response               = array();
         $response["status"]     = "success";
         $response["message"]    = "Posts found";
         $response["code"]       = "200";
-        $response["data"]       = $posts;
+        $response["data"]       = $filtered_posts;
         return $response;
     }
 
