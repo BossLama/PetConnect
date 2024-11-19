@@ -81,7 +81,17 @@ class PostEndpoint extends Endpoint
         {
             if($post->canSee($token_payload['user_id']))
             {
-                $filtered_posts[] = $post->toArray();
+                $postArray = $post->toArray();
+                require_once "./entities/UserProfile.php";
+                $profileCreator = \entities\UserProfile::findByID($postArray['creator']);
+                $profileCreator = $profileCreator->asArray();
+                $profileCreator['password'] = null;
+                $profileCreator['email'] = null;
+                $profileCreator['created_at'] = null;
+                $profileCreator['last_login'] = null;
+                $postArray['creator'] = $profileCreator;
+
+                $filtered_posts[] = $postArray;
             }
         }
 
