@@ -35,7 +35,13 @@ function renderPost(post)
     // Calculate the time ago
     let timeAgo = Math.floor((new Date() - new Date(postDate)) / 1000 / 60 / 60);
     let timeAgoLabel = "vor " + timeAgo + " Stunden";
-    if(timeAgo == 0) timeAgoLabel = "gerade eben";
+    if(timeAgo == 0)
+    {
+        timeAgo = Math.floor((new Date() - new Date(postDate)) / 1000 / 60);
+        timeAgoLabel = "vor " + timeAgo + " Minuten";
+
+        if(timeAgo == 0) timeAgoLabel = "vor wenigen Sekunden";
+    }
 
     let category    = "#unbekannt";
     if(post.visibility == 0) category = "#privat"

@@ -207,6 +207,30 @@ class UserProfile
         return null;
     }
 
+    public static function findByUsername($username)
+    {
+        if(!defined('USER_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(USER_STORAGE_FILE))
+        {
+            file_put_contents(USER_STORAGE_FILE, json_encode(array()));
+        }
+
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        foreach($users as $user)
+        {
+            if($user["username"] == $username) return new UserProfile($user);
+        }
+        return null;
+    }
+
 
 
     // ============================ GETTER METHODS ============================
