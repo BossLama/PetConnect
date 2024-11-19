@@ -4,10 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     getPosts();
 });
 
+setInterval(function() {
+    getPosts(nextIndexPost);
+}, 1000);
+
 // Load the posts the user can see
-function getPosts()
+function getPosts(nextIndex = 0)
 {
-    fetch(api_url + "?endpoint_id=post", {
+    fetch(api_url + "?endpoint_id=post&min=" + nextIndex + "", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -20,6 +24,7 @@ function getPosts()
         data.data.forEach(post => {
             renderPost(post);
         });
+        nextIndexPost = nextIndex + data.data.length;
     })
     .catch((error) => {
         console.error('Error:', error);
