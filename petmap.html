@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetMap | PetConnect</title>
+    <!-- Styling -->
+    <link rel="stylesheet" href="sources/css/stylesheet_petmap.css">
+    <!-- MapView -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <!-- Scripting -->
+    <script src="sources/js/handler/APIHandler.js"></script>
+    <script src="sources/js/controller/ProfileManager.js"></script>
+    <script src="sources/js/handler/MapView.js"></script>
+    <script src="sources/js/logic_petmap.js"></script>
+</head>
+<body>
+    <nav class="side-nav" id="side-navigation">
+        <h1>PetConnect</h1>
+        <ul>
+            <a href="./index.html"><li><img src="resources/icons/icon_light_home.svg" alt="Home"> Startseite</li></a>
+            <a href="./index.html"><li><img src="resources/icons/icon_light_add.svg" alt="Post"> Posten</li>
+            <a href="./petmap.html"><li><img src="resources/icons/icon_light_explore.svg" alt="Map"> PetMap</li></a>
+            <a href="#"><li><img src="resources/icons/icon_light_mail.svg" alt="Inbox"> Inbox</li></a>
+            <a href="#"><li><img src="resources/icons/icon_light_group.svg" alt="Friends"> Freunde</li></a>
+        </ul>
+        <div class="buttons">
+            <button id="button_setting" class="button-setting"><img src="resources/icons/icon_light_setting.svg" alt="Settings"></button>
+        </div>
+    </nav>
+    <main id="map">
+        
+    </main>
+</body>
+</html>

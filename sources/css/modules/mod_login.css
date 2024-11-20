@@ -1,0 +1,92 @@
+.formular
+{
+    padding: 1rem;
+    background-color: rgba(var(--color-text), 0.1);
+    width: 80%;
+    min-width: 300px;
+    max-width: 700px;
+    border-radius: 0.5rem;
+}
+
+    .formular.hidden
+    {
+        display: none;
+    }
+
+    .formular h1
+    {
+        text-align: center;
+    }
+
+    .formular h2
+    {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 2rem;
+    }
+
+    .formular .line
+    {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+
+    .formular .line label
+    {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: rgba(var(--color-text), 0.5);
+    }
+
+    .formular .line input
+    {
+        width: 100%;
+        background: rgba(var(--color-text), 0.05);
+        padding: 0.5rem;
+        color: rgb(var(--color-text));
+        font-family: var(--font-primary);
+        border: none;
+        border-radius: 0.5rem;
+        margin-top: 0.25rem;
+        outline: none;
+    }
+
+        .formular .line-check
+        {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            user-select: none;
+        }
+
+    .formular .controlls
+    {
+        margin-top: 3rem;
+    }
+
+        .formular .button-submit
+        {
+            padding: 0.5rem 3rem;
+            background-color: var(--color-accent);
+            color: #fff;
+            border: none;
+            font-family: var(--font-primary);
+            border-radius: 5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .formular .button-toggle
+        {
+            background: transparent;
+            color: rgb(var(--color-text));
+            padding: 0.5rem 1rem;
+            font-family: var(--font-primary);
+            border: none;
+            cursor: pointer;
+        }

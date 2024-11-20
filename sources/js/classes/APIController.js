@@ -1,1 +1,0 @@
-const api_url = "./backend/index.php";

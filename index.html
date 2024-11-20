@@ -3,116 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | PetConnect</title>
+    <title>PetConnect</title>
+    <!-- Styling -->
     <link rel="stylesheet" href="sources/css/stylesheet_index.css">
-    <!-- Javascript -->
-    <script src="sources/js/classes/APIController.js"></script>
-    <script src="sources/js/classes/FeedBarController.js"></script>
-    <script src="sources/js/classes/ProfileManager.js"></script>
-    <script src="sources/js/index_logic.js"></script>
+    <!-- Scripting -->
+    <script src="sources/js/handler/APIHandler.js"></script>
+    <script src="sources/js/controller/ProfileManager.js"></script>
+
+    <script src="sources/js/controller/PostFormController.js"></script>
+    <script src="sources/js/logic_index.js"></script>
 </head>
 <body>
-    <!-- Friendzone View-->
-    <nav id="friendzone" class="friendzone hidden">
-        <div class="group">
-            <h2>In deiner Nähe</h2>
-            <ul>
-                <li>
-                    <div class="container">
-                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                        <div class="details">
-                            <p class="pet">Katze</p><p class="name">Max van Goth</p>
-                        </div>
-                    </div>
-                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-                </li>
-                <li>
-                    <div class="container">
-                        <img src="media/images/profiles/user_4973454_example.jpg" alt="Profile">
-                        <div class="details">
-                            <p class="pet">Hund</p><p class="name">Fred Neuberg</p>
-                        </div>
-                    </div>
-                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-                </li>
-            </ul>
-        </div>
-        <div class="group">
-            <h2>Ärzte bei dir</h2>
-            <ul>
-                <li>
-                    <div class="container">
-                        <img src="media/images/profiles/user_4973454_example.jpg" alt="">
-                        <div class="details">
-                            <p class="pet">Tierarzt</p><p class="name">Max van Goth</p>
-                        </div>
-                    </div>
-                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-                </li>
-                <li>
-                    <div class="container">
-                        <img src="media/images/profiles/user_4973454_example.jpg" alt="">
-                        <div class="details">
-                            <p class="pet">Tierarzt</p><p class="name">Fred Neuberg</p>
-                        </div>
-                    </div>
-                    <button class="button_add"><img src="media/icons/icon_light_add.svg" alt=""></button>
-                </li>
-            </ul>
+    <nav class="side-nav" id="side-navigation">
+        <h1>PetConnect</h1>
+        <ul>
+            <a href="./index.html"><li><img src="resources/icons/icon_light_home.svg" alt="Home"> Startseite</li></a>
+            <li id="button_show_post" class="clickable"><img src="resources/icons/icon_light_add.svg" alt="Post"> Posten</li>
+            <a href="./petmap.html"><li><img src="resources/icons/icon_light_explore.svg" alt="Map"> PetMap</li></a>
+            <a href="#"><li><img src="resources/icons/icon_light_mail.svg" alt="Inbox"> Inbox</li></a>
+            <a href="#"><li><img src="resources/icons/icon_light_group.svg" alt="Friends"> Freunde</li></a>
+        </ul>
+        <div class="buttons">
+            <button id="button_setting" class="button-setting"><img src="resources/icons/icon_light_setting.svg" alt="Settings"></button>
         </div>
     </nav>
-    <!-- Main Content -->
-    <main>
-        <section class="feed" id="feed">
-            <div class="post">
-                <div class="header">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="">
-                    <div class="details">
-                        <p class="group">#vermisst</p>
-                        <div class="meta">
-                            <p class="name">Grabiel Singer</p>
-                            <p class="date">vor 2 Stunden</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <p>
-                        Hallo, mein Kater ist seit gestern Abend verschwunden. Er ist schwarz und hat einen weißen Fleck auf der Brust. Er hört auf den Namen "Felix". Bitte helft mir ihn zu finden.
-                    </p>
-                </div>
-                <div class="action-bar">
-                    <button>Mitleid ausdrücken</button>
-                    <button>Antworten</button>
-                    <button>Teilen</button>
-                </div>
+    <main id="feed" class="feed">
+        <article class="post">
+            <div class="header">
+                <img src="resources/placeholder/plaho_profile_dog.png" alt="Profile">
+                <p class="username">Maxi</p>
+                <p class="posted">vor 1 Stunde - Öffentlich</p>
             </div>
-            <div class="post">
-                <div class="header">
-                    <img src="media/images/profiles/user_4973454_example.jpg" alt="">
-                    <div class="details">
-                        <p class="group">#vermisst</p>
-                        <div class="meta">
-                            <p class="name">Grabiel Singer</p>
-                            <p class="date">vor 2 Stunden</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <p>
-                        Hallo, mein Kater ist seit gestern Abend verschwunden. Er ist schwarz und hat einen weißen Fleck auf der Brust. Er hört auf den Namen "Felix". Bitte helft mir ihn zu finden.
-                    </p>
-                    <img src="media/images/posts/post_237948759847_default.jpg" alt="">
-                </div>
-                <div class="action-bar">
-                    <button>Mitleid ausdrücken</button>
-                    <button>Antworten</button>
-                    <button>Teilen</button>
-                </div>
+            <div class="message">
+                Ich habe leider den Eindruck gewonnen, dass meine Katze Drogen konsumiert hat. Nun bin ich mir nicht sicher, 
+                wie ich mich am besten verhalten soll, da sie nicht mehr ganz gesund aussieht.
             </div>
-        </section>
+            <div class="controlls">
+                <button class="button-controll"><img src="resources/icons/icon_light_favorite.svg" alt="Like"></button>
+                <button class="button-controll"><img src="resources/icons/icon_light_comment.svg" alt="Comment"></button>
+            </div>
+        </article>
+        <article class="post">
+            <div class="header">
+                <img src="resources/placeholder/plaho_profile_dog.png" alt="Profile">
+                <p class="username">Maxi</p>
+                <p class="posted">vor 1 Stunde - Kommune</p>
+            </div>
+            <div class="message">
+                Ich habe leider den Eindruck gewonnen, dass meine Katze Drogen konsumiert hat. Nun bin ich mir nicht sicher, 
+                wie ich mich am besten verhalten soll, da sie nicht mehr ganz gesund aussieht.
+            </div>
+            <img src="resources/placeholder/plaho_post_cat.webp" alt="Image" class="post-image">
+            <div class="controlls">
+                <button class="button-controll"><img src="resources/icons/icon_light_favorite.svg" alt="Like"></button>
+                <button class="button-controll"><img src="resources/icons/icon_light_comment.svg" alt="Comment"></button>
+            </div>
+        </article>
     </main>
-    <nav class="friendzone">
-    
-    </nav>
+
+    <form class="post-form hidden" id="post_form">
+        <div class="form">
+            <div class="header">
+                <img src="resources/placeholder/plaho_profile_dog.png" alt="Profile">
+                <p class="username">Maxi</p>
+            </div>
+            <textarea name="input_message" id="input_message" placeholder="Erzähle deine Geschichte..."></textarea>
+            <div class="buttons">
+                <button class="button-submit" type="button">Posten</button>
+                <button class="button-cancel" type="button">Abbrechen</button>
+            </div>
+        </div>
+    </form>
 </body>
 </html>

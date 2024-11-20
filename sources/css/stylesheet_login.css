@@ -1,15 +1,13 @@
-@import url(modules/default.css);
-@import url(modules/login_form.css);
-@import url(modules/register_detail_questions.css);
+@import url(modules/mod_default.css);
+@import url(modules/mod_login.css);
 
-main
+body
 {
-    min-height: 100vH;
+    width: 100%;
+    height: 100vH;
+    overflow-y: scroll;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    background-size: cover;
-    background-position: center;
 }

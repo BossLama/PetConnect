@@ -1,0 +1,87 @@
+.feed
+{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    flex: 4;
+    padding: 2rem 5%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+    .feed::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    .feed .post
+    {
+        background-color: rgba(var(--color-text), 0.05);
+        border-radius: 0.5rem;
+        width: 80%;
+        max-width: 600px;
+    }
+
+        .feed .post .header
+        {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(var(--color-text), 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+            .feed .post .header img
+            {
+                height: 2rem;
+                border-radius: 50%;
+                background-color: rgba(var(--color-text), 0.2);
+            }
+
+            .feed .post .header .username
+            {
+                font-weight: 300;
+            }
+
+            .feed .post .header .posted
+            {
+                font-size: 0.8rem;
+                color: rgba(var(--color-text), 0.5);
+            }
+
+        .feed .post .message
+        {
+            font-size: 1.2rem;
+            padding: 1rem;
+            line-height: 1.7rem;
+        }
+
+        .feed .post .post-image
+        {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1.5rem;
+        }
+
+        .feed .post .controlls
+        {
+            padding: 0rem 1rem;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feed .post .button-controll
+        {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+            .feed .post .button-controll img
+            {
+                height: 2rem;
+            }

@@ -3,42 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anmelden | PetConnect</title>
+    <title>Login | PetConnect</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="sources/css/stylesheet_login.css">
-    <script src="sources/js/classes/UnicornAlert.js"></script>
-    <script src="sources/js/classes/ProfileManager.js"></script>
-    <script src="sources/js/classes/APIController.js"></script>
-    <script src="sources/js/login_logic.js"></script>
+    <!-- Scripts -->
+    <script src="sources/js/plugins/UnicornAlert.js"></script>
+    <script src="sources/js/handler/APIHandler.js"></script>
+    <script src="sources/js/controller/ProfileManager.js"></script>
+
+    <script src="sources/js/logic_login.js"></script>
 </head>
 <body>
-    <main>
-        <form id="register" class="login_form">
-            <h2>Jetzt mitmachen</h2>
-            <p>Werde Teil der PetConnect-Community</p>
+    <section id="form_register" class="formular">
+        <h1>PetConnect</h1>
+        <h2>Werde Teil der Community</h2>
 
-            <div class="inputs">
-                <input type="text" name="input_register_username" id="input_register_username" placeholder="Wie heißt dein Haustier?">
-                <input type="text" name="input_register_zip" id="input_register_zip" placeholder="Deine Postleitzahl">
-                <input type="email" name="input_register_email" id="input_register_email" placeholder="Deine E-Mail-Adresse">
-                <input type="password" name="input_register_password" id="input_register_password" placeholder="Wähle ein sicheres Passwort">
+        <div class="line">
+            <label for="input_register_username">Wähle einen Usernamen</label>
+            <input type="text" name="input_register_username" id="input_register_username" placeholder="Maxibär">
+        </div>
+        <div class="line">
+            <label for="input_register_email">Deine E-Mail-Adresse</label>
+            <input type="email" name="input_register_email" id="input_register_email" placeholder="maxibär@mail.com">
+        </div>
+        <div class="line">
+            <label for="input_register_password">Wähle ein sicheres Passwort</label>
+            <input type="password" name="input_register_password" id="input_register_password" placeholder="Passwort">
+        </div>
+        <div class="line">
+            <label for="">Gebe an, woher du kommst</label>
+            <input type="text" name="input_register_zip" id="input_register_zip" placeholder="Postleitzahl">
+        </div>
+        <div class="line-check">
+            <input type="checkbox" name="input_register_privacy" id="input_register_privacy">
+            <label for="input_register_privacy">Ich stimme der <a href="#">Datenschutzerklärung</a> zu</label>
+        </div>
 
-                <button type="button" id="button_register">Los gehts</button>
-                <button class="link" onclick="toggleForm()" type="button">Ich bin schon Mitglied</button>
-            </div>
-        </form>
+        <div class="controlls">
+            <button id="button_register" class="button-submit">Jetzt registrieren</button>
+            <button class="button-toggle">Ich bin bereits Mitglied</button>
+        </div>
+    </section>
 
-        <form id="login" class="login_form hidden">
-            <h2>Willkommen</h2>
-            <p>zurück in der PetConnect-Community</p>
+    <section id="form_login" class="formular hidden">
+        <h1>PetConnect</h1>
+        <h2>Willkommen zurück</h2>
 
-            <div class="inputs">
-                <input type="email" name="input_login_email" id="input_login_email" placeholder="Deine E-Mail-Adresse">
-                <input type="password" name="input_login_password" id="input_login_password" placeholder="Dein Passwort">
+        <div class="line">
+            <label for="input_login_email">Deine E-Mail-Adresse</label>
+            <input type="email" name="input_login_email" id="input_login_email" placeholder="maxibär@mail.com">
+        </div>
+        <div class="line">
+            <label for="input_login_password">Dein Passwort</label>
+            <input type="password" name="input_login_password" id="input_login_password" placeholder="Passwort">
+        </div>
 
-                <button type="button" id="button_login">Los gehts</button>
-                <button class="link" onclick="toggleForm()" type="button">Ich bin kein Mitglied</button>
-            </div>
-        </form>
-    </main>
+        <div class="controlls">
+            <button id="button_login" class="button-submit">Einloggen</button>
+            <button class="button-toggle">Ich bin neu hier</button>
+        </div>
+    </section>
 </body>
 </html>

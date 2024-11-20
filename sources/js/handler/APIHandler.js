@@ -1,0 +1,1 @@
+const API_URL = "http://localhost/projects/PetConnect/backend/index.php";
