@@ -1,1 +1,1 @@
-const API_URL = "http://localhost/projects/PetConnect/backend/index.php";
+const API_URL = "./backend/index.php";
