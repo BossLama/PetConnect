@@ -49,6 +49,15 @@
                 font-weight: 300;
             }
 
+            .post-form .form .header .select
+            {
+                padding: 0.5rem 1rem;
+                background-color: rgba(var(--color-text), 0.1);
+                color: rgb(var(--color-text));
+                border: none;
+                border-radius: 5rem;
+            }
+
         .post-form .form textarea
         {
             width: 100%;

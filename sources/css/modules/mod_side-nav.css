@@ -8,6 +8,12 @@
     flex-direction: column;
 
     border-right: 2px solid rgba(var(--color-text), 0.1);
+
+    @media only screen and (max-width: 768px)
+    {
+        position: fixed;
+        display: none;
+    }
 }
 
     .side-nav h1

@@ -31,6 +31,39 @@ class PostFormController
 
     onSubmit()
     {
+        var content = document.getElementById("input_message").value;
+        var visibility = document.getElementById("input_visibility").value;
+
+        console.log(content);
+
+        var request_parameter = {
+            message: content,
+            visibility: visibility
+        }
+
+        var request_body = {
+            "endpoint_id": "post",
+            "parameters": request_parameter
+        }
+
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(request_body),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": profileManager.getAuthToken()
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.status === 'success') {
+                this.hideView();
+            } else {
+                console.error(data.message);
+                console.log(data);
+            }
+        })
 
     }
 

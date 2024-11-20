@@ -137,6 +137,7 @@ class PostEndpoint extends Endpoint
             $response               = array();
             $response["status"]     = "error";
             $response["message"]    = "Bitte geben Sie einen Text von min. 10 Zeichen an";
+            $response["given"]      = $message;
             $response["code"]       = "400";
             $response["hint"]       = "Please provide a message";
             return $response;

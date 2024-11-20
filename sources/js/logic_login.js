@@ -106,7 +106,7 @@ function onLogin()
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.SUCCESS, "Sie sind nun angemeldet", 5000);
             profileManager.setAuthToken(data.token);
-            //window.location.href = "index.html";
+            window.location.href = "index.html";
         }
         else
         {
