@@ -56,7 +56,13 @@
                 color: rgb(var(--color-text));
                 border: none;
                 border-radius: 5rem;
+                outline: none;
             }
+
+                .post-form .form .header option
+                {
+                    color: #000;
+                }
 
         .post-form .form textarea
         {
