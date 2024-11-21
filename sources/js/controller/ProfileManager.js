@@ -47,6 +47,27 @@ class ProfileManager
         })
     }
 
+    isAuthorized(callback)
+    {
+        fetch(API_URL + "?endpoint_id=auth", {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': this.getAuthToken()
+            },    
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                callback(true);
+            } else {
+                callback(false);
+                console.error(data.message);
+                console.log(data);
+            }
+        });
+    }
+
     getUserLocation(callback)
     {
         this.getProfileData((data) => {
@@ -81,16 +102,42 @@ document.addEventListener('DOMContentLoaded', function() {
     let profileManager = new ProfileManager();
     if(!profileManager.hasAuthToken())
     {
-        if(!window.location.pathname.includes('login.html'))
-        {
-            window.location.href = './login.html';
-        }
+        redirectToLogin();
         return;
     }
 
-    profileManager.getProfileData(function(data) {
-        profileManager.renderProfileData(data);
+    setInterval(() => {
+        profileManager.isAuthorized((authorized) => {
+            if(!authorized)
+            {
+                redirectToLogin();
+            }
+        });
+    }, 1000);
+
+    profileManager.isAuthorized((authorized) => {
+        if(!authorized)
+        {
+            redirectToLogin();
+            return;
+        }
+        else
+        {
+            profileManager.getProfileData(function(data) {
+                profileManager.renderProfileData(data);
+            });
+        
+            profileManager.getUserLocation((location) => console.log(location));
+        }
     });
 
-    profileManager.getUserLocation((location) => console.log(location));
 });
+
+
+function redirectToLogin()
+{
+    if(!window.location.pathname.includes('login.html'))
+    {
+        window.location.href = './login.html';
+    }
+}

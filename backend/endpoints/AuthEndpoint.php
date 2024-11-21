@@ -119,7 +119,8 @@ class AuthEndpoint extends Endpoint
     // Method is not allowed
     public function onGet() : array
     {
-        $tokenString      = $this->parameters["token"] ?? null;
+        require_once "./entities/JsonWebToken.php";
+        $tokenString      = $this->token ?? "";
         $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
 
         if(!$token_valid)
@@ -129,6 +130,7 @@ class AuthEndpoint extends Endpoint
             $response["message"]    = "Sie sind nicht authentifiziert";
             $response["code"]       = "400";
             $response["hint"]       = "Token is invalid";
+            $response["token"]      = $tokenString;
             return $response;
         }
 

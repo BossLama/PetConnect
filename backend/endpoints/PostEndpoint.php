@@ -126,6 +126,7 @@ class PostEndpoint extends Endpoint
         $token_payload = $token_valid->payload;
 
         $visibility         = $this->parameters['visibility'] ?? 0;
+        $reply_to           = $this->parameters['reply_to'] ?? null;
         $type               = 0;
         $creator            = $token_payload['user_id'];
         $message            = $this->parameters['message'] ?? "";
@@ -154,6 +155,7 @@ class PostEndpoint extends Endpoint
         require_once "./entities/Post.php";
         $post = new \entities\Post(array(
             'visibility'    => $visibility,
+            'reply_to'      => $reply_to,
             'type'          => $type,
             'creator'       => $creator,
             'message'       => $message,
