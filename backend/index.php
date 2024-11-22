@@ -88,6 +88,9 @@ try
 }
 catch(Exception $e)
 {
+
+    new includes\ErrorLogger()::log($e->getMessage($e->getMessage()));
+    
     $response               = array();
     $response['status']     = 'error';
     $response['message']    = "Es gab einen Fehler bei der Verarbeitung.";
