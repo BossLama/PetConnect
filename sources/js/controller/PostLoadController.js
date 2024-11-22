@@ -2,6 +2,7 @@ class PostLoadController
 {
     lastIndex       = 0;
     limit           = 20;
+    posts           = new Map();
 
     loadPosts(fromIndex = 0)
     {
@@ -15,7 +16,6 @@ class PostLoadController
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if(data.status == "success")
             {
                 data.data.forEach(post => {
@@ -56,6 +56,11 @@ class PostLoadController
         if (timeDifferenceInMinutes < 60) timeString = "vor " + Math.floor(timeDifferenceInMinutes) + " Minuten";
         if (timeDifferenceInMinutes < 1) timeString = "vor wenigen Sekunden";
         
+        var likeIcon            = "icon_light_favorite.svg";
+        if(post.liked) likeIcon = "icon_red_favorite.svg";
+
+        var likeClass = "like";
+        if(post.liked) likeClass = "liked";
 
         var postElement = document.createElement("article");
         postElement.dataset.post_id = post.post_id;
@@ -69,8 +74,8 @@ class PostLoadController
             </div>
             <div class="message">`+ message +`</div>
             <div class="controlls">
-                <button class="button-controll"><img src="resources/icons/icon_light_favorite.svg" alt="Like"></button>
-                <button class="button-controll"><img src="resources/icons/icon_light_comment.svg" alt="Comment"></button>
+                <button class="button-controll like"><img src="resources/icons/`+ likeIcon +`" alt="Like"></button>
+                <button class="button-controll comment"><img src="resources/icons/icon_light_comment.svg" alt="Comment"></button>
             </div>`;
 
         // Insert the post at the beginning of the post container
@@ -81,6 +86,9 @@ class PostLoadController
         // If feed scroll < 100px from top, scroll to top
         if (topScroll < 100) postContainer.scrollTop = 0;
 
+        postElement.querySelector(".like").addEventListener("click", () => {
+            interactController.addLike(post.post_id, postElement);
+        });
     }
 }
 

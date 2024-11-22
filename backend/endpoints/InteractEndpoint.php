@@ -82,14 +82,31 @@ class InteractEndpoint extends Endpoint
                     return $response;
                 }
 
-                $post->addLike($user_id);
+                // Remove like if already liked
+                if($post->hasLiked($user_id))
+                {
+                    $post->removeLike($user_id);
+                    $response               = array();
+                    $response["status"]     = "success";
+                    $response["message"]    = "Like removed";
+                    $response["code"]       = "200";
+                    $response["type"]       = "removed";
+                    $response["hint"]       = "Like removed";
+                    return $response;
 
-                $response               = array();
-                $response["status"]     = "success";
-                $response["message"]    = "Like added";
-                $response["code"]       = "200";
-                $response["hint"]       = "Like added";
-                return $response;
+                }
+                // Add like if not liked
+                else
+                {
+                    $post->addLike($user_id);
+                    $response               = array();
+                    $response["status"]     = "success";
+                    $response["message"]    = "Like added";
+                    $response["code"]       = "200";
+                    $response["type"]       = "added";
+                    $response["hint"]       = "Like added";
+                    return $response;
+                }
             default:
                 $response               = array();
                 $response["status"]     = "error";

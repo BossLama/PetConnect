@@ -76,7 +76,7 @@ try
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
-        default: throw new Exception('Invalid endpoint \''. $endpoint_id .'\' id given', 400);
+        default: throw new Exception('Invalid endpoint id \''. $endpoint_id .'\' given', 400);
     }
 }
 catch(Exception $e)

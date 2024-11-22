@@ -89,8 +89,9 @@ class PostEndpoint extends Endpoint
                 $profileCreator['email'] = null;
                 $profileCreator['created_at'] = null;
                 $profileCreator['last_login'] = null;
-                $postArray['creator'] = $profileCreator;
 
+                $postArray['creator'] = $profileCreator;
+                $postArray['liked']   = $post->hasLiked($token_payload['user_id']);
                 $filtered_posts[] = $postArray;
             }
         }

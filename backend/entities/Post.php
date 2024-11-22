@@ -103,6 +103,15 @@ class Post
         }
     }
 
+    public function removeLike($userID)
+    {
+        if(in_array($userID, $this->likes))
+        {
+            $this->likes = array_diff($this->likes, array($userID));
+            $this->save();
+        }
+    }
+
     public function hasLiked($userID)
     {
         return in_array($userID, $this->likes);
