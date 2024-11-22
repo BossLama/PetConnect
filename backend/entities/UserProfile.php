@@ -94,9 +94,6 @@ class UserProfile
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/IQRCodeProvider.php";
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/BaconQrCodeProvider.php";
         
-        //use RobThree\Auth\TwoFactorAuth;
-        //use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
-        
         $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider());
         return $tfa->verifyCode($this->totp_secret, $totp);
     }

@@ -52,6 +52,10 @@ function onBoot()
         }
     });
 
+    twoFactorController.displayTwoFactorView((totp, result) => {
+        //alert(totp + " " + result);
+    });
+
     button_login.addEventListener("click", onLogin);
     button_register.addEventListener("click", onRegister);
 

@@ -76,6 +76,13 @@ try
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
+        case "twofactor":
+            require_once "./endpoints/TwoFactorEndpoint.php";
+            $endpoint = new endpoints\TwoFactorEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
+
         default: throw new Exception('Invalid endpoint id \''. $endpoint_id .'\' given', 400);
     }
 }
