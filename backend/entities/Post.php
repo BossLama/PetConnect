@@ -190,21 +190,19 @@ class Post
     }
 
     // ============================ GETTER METHODS ============================
-    public function getPostID(): int                        {return $this->post_id;}
+    public function getPostID(): string                        {return $this->post_id;}
     public function getCreator(): string                    {return $this->creator;}
     public function getPostedAt(): mixed                    {return $this->posted_at;}
     public function getMessage(): string                    {return $this->message;}
-    public function getLikes(): int                         {return $this->likes;}
-    public function getComments(): int                      {return $this->comments;}
-    public function getShares(): int                        {return $this->shares;}
-    public function getReplyTo(): int                       {return $this->reply_to;}
+    public function getLikes(): array                         {return $this->likes;}
+    public function getShares(): array                        {return $this->shares;}
+    public function getReplyTo(): string                       {return $this->reply_to;}
     // ============================ SETTER METHODS ============================
     public function setPostID($post_id): void               {$this->post_id = $post_id;}
     public function setCreator($creator): void              {$this->creator = $creator;}
     public function setPostedAt($posted_at): void           {$this->posted_at = $posted_at;}
     public function setMessage($message): void              {$this->message = $message;}
     public function setLikes($likes): void                  {$this->likes = $likes;}
-    public function setComments($comments): void            {$this->comments = $comments;}
     public function setShares($shares): void                {$this->shares = $shares;}
     public function setReplyTo($reply_to): void             {$this->reply_to = $reply_to;}
 }

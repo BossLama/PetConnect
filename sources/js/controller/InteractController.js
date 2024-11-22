@@ -31,6 +31,7 @@ class InteractController
                 {
                     element.querySelector(".like").querySelector("img").src = "resources/icons/icon_light_favorite.svg";
                 }
+                element.querySelector(".like").querySelector(".like-count").innerText = data.like_count;
             }
             else
             {

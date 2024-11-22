@@ -62,6 +62,8 @@ class PostLoadController
         var likeClass = "like";
         if(post.liked) likeClass = "liked";
 
+        var likeCount = post.likes.length;
+
         var postElement = document.createElement("article");
         postElement.dataset.post_id = post.post_id;
         postElement.className = "post";
@@ -74,7 +76,8 @@ class PostLoadController
             </div>
             <div class="message">`+ message +`</div>
             <div class="controlls">
-                <button class="button-controll like"><img src="resources/icons/`+ likeIcon +`" alt="Like"></button>
+                <button class="button-controll like"><img src="resources/icons/`+ likeIcon +`" alt="Like">
+                <p class="like-count">`+ likeCount +`</p></button>
                 <button class="button-controll comment"><img src="resources/icons/icon_light_comment.svg" alt="Comment"></button>
             </div>`;
 

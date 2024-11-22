@@ -91,6 +91,7 @@ class InteractEndpoint extends Endpoint
                     $response["message"]    = "Like removed";
                     $response["code"]       = "200";
                     $response["type"]       = "removed";
+                    $response["like_count"] = count($post->getLikes());
                     $response["hint"]       = "Like removed";
                     return $response;
 
@@ -104,6 +105,7 @@ class InteractEndpoint extends Endpoint
                     $response["message"]    = "Like added";
                     $response["code"]       = "200";
                     $response["type"]       = "added";
+                    $response["like_count"] = count($post->getLikes());
                     $response["hint"]       = "Like added";
                     return $response;
                 }

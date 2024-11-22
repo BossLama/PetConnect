@@ -81,7 +81,15 @@
             cursor: pointer;
         }
 
+            .feed .post .button-controll
+            {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+                color: #fff;
+            }
+
             .feed .post .button-controll img
             {
-                height: 2rem;
+                height: 1.5rem;
             }
