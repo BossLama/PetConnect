@@ -1,4 +1,41 @@
 <?php
+/**
+ *  =================================================================================
+ *  Name        :       ProfileEndpoint.php
+ *  Purpose     :       Endpoint for managing user profiles, including retrieval and updates.
+ *  Authors     :       Jonas Riemer, Fabian Belli
+ *  Last Edited :       01.11.2024
+ *  =================================================================================
+ *  
+ * Class ProfileEndpoint
+ * 
+ * This class provides an API endpoint for managing user profiles. It supports retrieving
+ * and updating user profiles based on authenticated requests. Other methods are restricted 
+ * to ensure security and proper usage.
+ *
+ * Methods:
+ * - onGet(): Retrieves the authenticated user's profile.
+ *     - Validates the provided JWT token.
+ *     - Returns user profile data, excluding sensitive fields like passwords.
+ *
+ * - onPut(): Updates the authenticated user's profile.
+ *     - Validates the token and checks the user's existence.
+ *     - Updates fields such as username, email, password, and pet details if provided.
+ *
+ * - onPost(), onDelete(): Return a "method not allowed" error.
+ * 
+ * Each method ensures structured JSON responses, including status, message, code, 
+ * and optional hints or data. Error handling covers invalid tokens, missing users, 
+ * and unauthorized requests.
+ *
+ * Usage:
+ * - Part of the `endpoints` namespace, extending the base `Endpoint` class.
+ * - Relies on `JsonWebToken` and `UserProfile` classes for authentication and user management.
+ * - Supports flexible updates to user profiles while safeguarding sensitive information.
+ *
+ * @package endpoints
+ */
+
 
 namespace endpoints;
 class ProfileEndpoint extends Endpoint

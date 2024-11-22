@@ -1,4 +1,42 @@
 <?php
+/**
+ *  =================================================================================
+ *  Name        :       InteractEndpoint.php
+ *  Purpose     :       Handles user interactions such as commenting, liking, and sharing posts.
+ *  Authors     :       <Your Name> (Replace with actual authors)
+ *  Last edited :       <Date> (Replace with actual date)
+ *  =================================================================================
+ *  
+ * Class InteractEndpoint
+ * 
+ * This class provides an endpoint for managing user interactions with posts within an API.
+ * It supports operations like creating comments, toggling likes, and validating user tokens.
+ *
+ * Methods:
+ * - onPost(): Handles user interactions on posts. Supports:
+ *     - Adding comments to posts.
+ *     - Liking/unliking posts.
+ *     - Validates user authentication via a JSON Web Token.
+ *     - Responds with structured feedback based on the interaction type.
+ * 
+ * - onPut(): Currently not implemented; reserved for future functionality.
+ * 
+ * - onDelete(): Returns a "method not allowed" error. 
+ *               Suggests using the auth endpoint for user profile deletion.
+ * 
+ * - onGet(): Not implemented, returning an empty response.
+ * 
+ * Each method returns a structured response with a status, message, code, and optional hint to guide the client.
+ *
+ * Usage:
+ * - This endpoint is part of the `endpoints` namespace and extends a base `Endpoint` class for seamless integration.
+ * - Relies on external classes from the `entities` namespace, including `JsonWebToken` and `Post`, to manage user authentication and post-related operations.
+ * - Handles various cases like missing parameters, invalid tokens, and unsupported interaction types.
+ *
+ * @package endpoints
+ */
+
+
 
 namespace endpoints;
 class InteractEndpoint extends Endpoint
