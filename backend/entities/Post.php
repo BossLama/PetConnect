@@ -44,7 +44,6 @@ class Post
         $this->type                 = $post['type'] ?? 0;
         $this->shares               = $post['shares'] ?? [];
         $this->likes                = $post['likes'] ?? [];
-        $this->comments             = $post['comment'] ?? [];
         $this->creator              = $post['creator'] ?? null;
         $this->posted_at            = $post['posted_at'] ?? date('Y-m-d H:i:s');
         $this->message              = $post['message'] ?? null;
@@ -95,6 +94,20 @@ class Post
         return true;
     }
 
+    public function addLike($userID)
+    {
+        if(!in_array($userID, $this->likes))
+        {
+            $this->likes[] = $userID;
+            $this->save();
+        }
+    }
+
+    public function hasLiked($userID)
+    {
+        return in_array($userID, $this->likes);
+    }
+
     public function save()
     {
         if(!defined('POST_STORAGE_FILE')) 
@@ -117,7 +130,6 @@ class Post
     }
 
     //TODO: Delete Post
-    //TODO: hasLiked(userID)
     //TODO: static --> findByCreator
 
 
