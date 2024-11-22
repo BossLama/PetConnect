@@ -1,0 +1,68 @@
+@import url(modules/mod_default.css);
+
+body
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+    .view
+    {
+        width: 80%;
+        max-width: 700px;
+        min-width: 300px;
+        padding: 1rem;
+        background-color: rgba(var(--color-text), 0.1);
+        border-radius: 0.5rem;
+        color: rgba(var(--color-text), 0.7);
+
+        text-align: center;
+    }
+
+    .view h2
+    {
+        color: rgba(var(--color-text), 1);
+    }
+
+    .secret-line,
+    .code-line
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 2.5rem 1rem;
+        padding-bottom: 0;
+    }
+
+        .secret-line .secret
+        {
+            padding: 0.5rem 1rem;
+            background-color: rgba(var(--color-text), 0.2);
+            border-radius: 5rem;
+        }
+
+        .code-line input
+        {
+            padding: 0.5rem;
+            background-color: rgba(var(--color-text), 0.2);
+            border: none;
+            border-radius: 0.5rem;
+            text-align: center;
+            color: rgb(var(--color-text));
+            outline: none;
+        }
+
+        .view .button-submit
+        {
+            margin-top: 2.5rem;
+            padding: 0.5rem 2rem;
+            background-color: var(--color-accent);
+            color: #fff;
+            font-family: var(--font-primary);
+            border: none;
+            border-radius: 5rem;
+            cursor: pointer;
+        }

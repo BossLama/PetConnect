@@ -26,6 +26,8 @@ class UserProfile
     private $user_id;
     private $username;
     private $password;
+    private $totp_secret;
+    private $totp_enabled;
     private $email;
     private $zip_code;
     private $pet_type;
@@ -49,6 +51,8 @@ class UserProfile
         $this->last_login = $parameters['last_login'] ?? null;                      // Date of last login
         $this->status     = $parameters['status'] ?? 1;                             // Status of the profile (0 = unverified, 1 = active, 2 = banned)
         $this->role       = $parameters['role'] ?? 1;                               // Role of the profile (1 = user, 2 = professional, 3 = admin)
+        $this->totp_enabled = $parameters['totp_enabled'] ?? false;                 // TOTP enabled for the user
+        $this->totp_secret = $parameters['totp_secret'] ?? $this->createTOTPSecret();// Secret for TOTP
     }   
 
 
@@ -57,6 +61,45 @@ class UserProfile
         return md5(uniqid(rand(), true));
     }
 
+    public function createTOTPSecret()
+    {
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/TwoFactorAuth.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/TwoFactorAuthException.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Algorithm.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Rng/IRNGProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Rng/CSRNGProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Time/ITimeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Time/LocalMachineTimeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/IQRCodeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/BaconQrCodeProvider.php";
+        
+        use RobThree\Auth\TwoFactorAuth;
+        use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+        
+        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+        $this->totp_secret = $tfa->createSecret();
+
+        return $this->totp_secret;
+    }
+
+    public function isTOTPValid($totp)
+    {
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/TwoFactorAuth.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/TwoFactorAuthException.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Algorithm.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Rng/IRNGProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Rng/CSRNGProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Time/ITimeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Time/LocalMachineTimeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/IQRCodeProvider.php";
+        require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/BaconQrCodeProvider.php";
+        
+        use RobThree\Auth\TwoFactorAuth;
+        use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+        
+        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+        return $tfa->verifyCode($this->totp_secret, $totp);
+    }
 
     public function isPasswordSecure()
     {
