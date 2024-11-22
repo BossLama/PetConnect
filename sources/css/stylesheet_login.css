@@ -1,5 +1,6 @@
 @import url(modules/mod_default.css);
 @import url(modules/mod_login.css);
+@import url(modules/mod_2FA.css);
 
 body
 {
