@@ -62,8 +62,8 @@ class ProfileManager
                 callback(true);
             } else {
                 callback(false);
-                console.error(data.message);
-                console.log(data);
+                //console.error(data.message);
+                //console.log(data);
             }
         });
     }

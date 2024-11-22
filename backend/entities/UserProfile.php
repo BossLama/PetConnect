@@ -73,10 +73,10 @@ class UserProfile
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/IQRCodeProvider.php";
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/BaconQrCodeProvider.php";
         
-        use RobThree\Auth\TwoFactorAuth;
-        use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+        //use RobThree\Auth\TwoFactorAuth;
+        //use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
         
-        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+        $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider());
         $this->totp_secret = $tfa->createSecret();
 
         return $this->totp_secret;
@@ -94,10 +94,10 @@ class UserProfile
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/IQRCodeProvider.php";
         require_once "./plugins/TwoFactorAuth-3.0.2/lib/Providers/Qr/BaconQrCodeProvider.php";
         
-        use RobThree\Auth\TwoFactorAuth;
-        use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+        //use RobThree\Auth\TwoFactorAuth;
+        //use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
         
-        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+        $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider());
         return $tfa->verifyCode($this->totp_secret, $totp);
     }
 
@@ -130,6 +130,24 @@ class UserProfile
             'user_id'       => $this->user_id,
             'username'      => $this->username,
             'password'      => $this->password,
+            'totp_secret'   => $this->totp_secret,
+            'totp_enabled'  => $this->totp_enabled,
+            'email'         => $this->email,
+            'zip_code'      => $this->zip_code,
+            'pet_type'      => $this->pet_type,
+            'animal_breed'  => $this->animal_breed,
+            'created_at'    => $this->created_at,
+            'last_login'    => $this->last_login,
+            'status'        => $this->status,
+            'role'          => $this->role
+        );
+    }
+
+    public function asPrivateArray()
+    {
+        return array(
+            'user_id'       => $this->user_id,
+            'username'      => $this->username,
             'email'         => $this->email,
             'zip_code'      => $this->zip_code,
             'pet_type'      => $this->pet_type,

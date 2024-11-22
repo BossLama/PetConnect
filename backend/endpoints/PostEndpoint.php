@@ -84,7 +84,7 @@ class PostEndpoint extends Endpoint
                 $postArray = $post->toArray();
                 require_once "./entities/UserProfile.php";
                 $profileCreator = \entities\UserProfile::findByID($postArray['creator']);
-                $profileCreator = $profileCreator->asArray();
+                $profileCreator = $profileCreator->asPrivateArray();
                 $profileCreator['password'] = null;
                 $profileCreator['email'] = null;
                 $profileCreator['created_at'] = null;
