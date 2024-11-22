@@ -43,6 +43,21 @@
             color: rgb(var(--color-text));
         }
 
+        .settings-view .line button
+        {
+            width: 50%;
+            min-width: 300px;
+            background-color: rgba(var(--color-text), 0.3);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5rem 5rem 5rem 5rem;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            outline: none;
+            color: rgb(var(--color-text));
+            cursor: pointer;
+        }
+
         .settings-view .buttons
         {
             display: flex;
