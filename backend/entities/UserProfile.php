@@ -98,6 +98,11 @@ class UserProfile
         return $tfa->verifyCode($this->totp_secret, $totp);
     }
 
+    public function isTOTPEnabled()
+    {
+        return $this->totp_enabled;
+    }
+
     public function isPasswordSecure()
     {
         if(!isset($this->password))                         return false;

@@ -3,7 +3,7 @@ class TwoFactorController
 
     display = null;
 
-    displayTwoFactorView(callback)
+    displayTwoFactorView(userID, callback)
     {
         if(this.display != null) removeTwoFactorView();
         this.display = document.createElement("div");
@@ -21,7 +21,7 @@ class TwoFactorController
         var button = document.createElement("button");
         button.innerHTML = "Bestätigen";
         button.addEventListener("click", () => {
-            this.checkTOTP(callback);
+            this.checkTOTP(userID, callback);
         });
 
         form.appendChild(button);
@@ -31,11 +31,11 @@ class TwoFactorController
     }
 
 
-    checkTOTP(callback)
+    checkTOTP(userID, callback)
     {
         var totp = document.getElementById("input_login_totp").value;
 
-        fetch(API_URL + "?endpoint_id=twofactor&totp=" + totp, {
+        fetch(API_URL + "?endpoint_id=twofactor&totp=" + totp + "&user_id=" + userID, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

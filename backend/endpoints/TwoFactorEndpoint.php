@@ -7,21 +7,7 @@ class TwoFactorEndpoint extends Endpoint
     // Return a method not allowed response
     public function onPost() : array
     {
-        require_once "./entities/JsonWebToken.php";
-        $tokenString      = $this->token ?? "";
-        $token_valid      = \entities\JsonWebToken::verifyToken($tokenString);
-        if(!$token_valid)
-        {
-            $response               = array();
-            $response["status"]     = "error";
-            $response["message"]    = "Sie sind nicht authentifiziert";
-            $response["code"]       = "400";
-            $response["hint"]       = "Token is invalid";
-            return $response;
-        }
-        $token          = \entities\JsonWebToken::fromToken($tokenString);
-        $user_id        = $token->payload["user_id"] ?? null;
-
+        $user_id        = $this->get_parameters["user_id"] ?? null;
         $totp           = $this->get_parameters["totp"] ?? null;
         $totp = intval($totp);
 
@@ -44,7 +30,6 @@ class TwoFactorEndpoint extends Endpoint
         $response["code"]       = "200";
         $response["hint"]       = "Two-factor authentication successful";
         $response["result"]     = $totp_result;
-        $response["totp"]       = $totp;
         return $response;  
     }
 

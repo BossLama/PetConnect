@@ -159,6 +159,7 @@ class AuthEndpoint extends Endpoint
     {
         $email      = $this->parameters["email"] ?? null;
         $password   = $this->parameters["password"] ?? null;
+        $totp       = $this->parameters["totpCode"] ?? null;
 
         if($email == null || $password == null)
         {
@@ -190,6 +191,27 @@ class AuthEndpoint extends Endpoint
             $response["message"]    = "Ihre Anmeldeinformationen sind ungültig";
             $response["code"]       = "400";
             $response["hint"]       = "Password is incorrect";
+            return $response;
+        }
+
+        if($user->isTOTPEnabled() && !isset($totp))
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "2-Faktor-Authentifizierung ist aktiviert";
+            $response["user_id"]    = $user->getUserID();
+            $response["code"]       = -1;
+            $response["hint"]       = "Please provide the 6-digit code";
+            return $response;
+        }
+
+        if($user->isTOTPEnabled() && !$user->isTOTPValid($totp))
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Der TOTP-Code ". json_encode($totp) ." ist ungültig";
+            $response["code"]       = 401;
+            $response["hint"]       = "The 6-digit code is invalid";
             return $response;
         }
 

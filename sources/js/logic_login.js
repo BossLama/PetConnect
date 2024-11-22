@@ -52,11 +52,7 @@ function onBoot()
         }
     });
 
-    twoFactorController.displayTwoFactorView((totp, result) => {
-        //alert(totp + " " + result);
-    });
-
-    button_login.addEventListener("click", onLogin);
+    button_login.addEventListener("click", () => onLogin(null));
     button_register.addEventListener("click", onRegister);
 
     document.querySelectorAll(".button-toggle").forEach(function(button) {
@@ -80,7 +76,7 @@ function toggleForm()
 }
 
 // Login the user
-function onLogin()
+function onLogin(totp)
 {
     var email      = document.getElementById("input_login_email");
     var password   = document.getElementById("input_login_password");
@@ -88,6 +84,7 @@ function onLogin()
     var request_parameter = {
         email: email.value,
         password: password.value,
+        totpCode: totp
     }
 
     var request_body = {
@@ -114,6 +111,18 @@ function onLogin()
         }
         else
         {
+            if(data.code == -1)
+            {
+                var userID = data.user_id;
+                twoFactorController.displayTwoFactorView(userID, (totp, result) => {
+                    if(result)
+                    {
+                        twoFactorController.removeTwoFactorView();
+                        onLogin(totp);
+                    }
+                });
+                return;
+            }
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
         }
