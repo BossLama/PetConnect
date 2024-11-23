@@ -89,7 +89,9 @@ try
 catch(Exception $e)
 {
 
-    new includes\ErrorLogger()::log($e->getMessage($e->getMessage()));
+    require_once "./includes/ErrorLogger.php";
+    $logger = new includes\ErrorLogger();
+    $logger->log($e->getMessage());
     
     $response               = array();
     $response['status']     = 'error';
