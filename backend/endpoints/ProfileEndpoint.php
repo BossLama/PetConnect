@@ -141,15 +141,27 @@ class ProfileEndpoint extends Endpoint
         $token          = \entities\JsonWebToken::fromToken($tokenString);
         $user_id        = $token->payload["user_id"] ?? null;
         $user           = \entities\UserProfile::findByID($user_id);
+        $user = $user->asPrivateArray();
         
-        $user->setPassword(null);
+        $load_all       = $this->get_parameters["load_all"] ?? false;
+        if($load_all)
+        {
+            $user = \entities\UserProfile::getAll();
+            usort($user, function($a, $b) {
+                return $a->getUsername() <=> $b->getUsername();
+            });
+
+            $user = array_map(function($user) {
+                return $user->asPrivateArray();
+            }, $user);
+        }
 
         $response               = array();
         $response["status"]     = "success";
         $response["message"]    = "Benutzerprofil wurde gefunden";
         $response["code"]       = "200";
         $response["hint"]       = "User profile found";
-        $response["data"]       = $user->asArray();
+        $response["data"]       = $user;
 
         return $response;
     }

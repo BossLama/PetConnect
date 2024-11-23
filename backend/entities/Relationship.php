@@ -60,14 +60,14 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE, true));
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE, true));
         $relationships[$this->relation_id] = $this->asArray();
-        file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
+        file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
 
@@ -82,14 +82,14 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
         unset($relationships[$this->relation_id]);
-        file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
+        file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }
 
 
@@ -104,12 +104,12 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        return json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
+        return json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
     }
 
 
@@ -124,12 +124,12 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
         return $relationships[$relation_id] ?? null;
     }
 
@@ -144,12 +144,12 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
         foreach($relationships as $relationship)
         {
             if($relationship["from_user"] == $from_user) return new Relationship($relationship);
@@ -168,17 +168,42 @@ class Relationship
             $response['hint']       = 'Configuration file may not included';
             return json_encode($response);
         }
-        if(!file_exists(RELATIONSHIP_STORAGE_FILE))
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
         {
-            file_put_contents(RELATIONSHIP_STORAGE_FILE, json_encode(array()));
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSHIP_STORAGE_FILE), true);
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
         foreach($relationships as $relationship)
         {
             if($relationship["to_user"] == $to_user) return new Relationship($relationship);
         }
         return null;
+    }
+
+    public static function findByToOrFrom($user_id)
+    {
+        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
+        {
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
+        }
+
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
+        $user_relationships = [];
+        foreach($relationships as $relationship)
+        {
+            if($relationship["to_user"] == $user_id || $relationship["from_user"] == $user_id) $user_relationships[] = new Relationship($relationship);
+        }
+        return $user_relationships;
     }
 
 

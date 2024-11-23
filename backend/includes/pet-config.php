@@ -21,6 +21,7 @@
     define('RELATIONSSHIP_STORAGE_FILE', STORAGE_FOLDER . "relationships.json");
     define('POST_STORAGE_FILE', STORAGE_FOLDER . "posts.json");
     define('IMAGE_STORAGE_FOLDER', STORAGE_FOLDER . "images/");
+    define('NOTIFICATION_STORAGE_FILE', STORAGE_FOLDER . "notifications.json");
 
 
     define('JWT_SECRET_FILE', "./keys/jwt_secret.key");

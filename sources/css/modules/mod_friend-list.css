@@ -1,0 +1,74 @@
+.friend-list
+{
+    padding: 2rem 5%;
+    flex: 1;
+}
+
+    .friend-list .list
+    {
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+        .friend-list h2
+        {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .friend-list .list .user
+        {
+            width: 80%;
+            max-width: 700px;
+            min-width: 300px;
+            background-color: rgba(var(--color-text), 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+            .friend-list .list .user .group
+            {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .friend-list .list .user .group img
+            {
+                height: 4rem;
+            }
+
+            .friend-list .list .user button
+            {
+                padding: 0.5rem 1rem;
+                border-radius: 5rem;
+                border: none;
+                cursor: pointer;
+                font-family: var(--font-primary);
+                background-color: var(--color-accent);
+                color: rgb(var(--color-text));
+                transition: transform 0.2s;
+            }
+
+                .friend-list .list .user button:hover
+                {
+                    transform: scale(1.05);
+                }
+
+                .friend-list .list .user button.pending
+                {
+                    opacity: 0.5;
+                }
+
+                .friend-list .list .user button.active
+                {
+                    background-color: rgba(var(--color-text), 0.2);
+                }

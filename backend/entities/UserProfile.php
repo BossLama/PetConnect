@@ -221,7 +221,14 @@ class UserProfile
             file_put_contents(USER_STORAGE_FILE, json_encode(array()));
         }
 
-        return json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        $users = json_decode(file_get_contents(USER_STORAGE_FILE), true);
+        $user_profiles = array();
+
+        foreach($users as $user)
+        {
+            $user_profiles[] = new UserProfile($user);
+        }
+        return $user_profiles;
     }
     
 

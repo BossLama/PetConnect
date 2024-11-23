@@ -61,6 +61,13 @@ try
             $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
+
+        case "relationship":
+            require_once "./endpoints/RelationshipEndpoint.php";
+            $endpoint = new endpoints\RelationshipEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
         
         case "post":
             require_once "./endpoints/PostEndpoint.php";
