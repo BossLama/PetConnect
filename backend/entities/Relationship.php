@@ -51,7 +51,7 @@ class Relationship
 
     public function save()
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -73,7 +73,7 @@ class Relationship
 
     public function delete()
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -95,7 +95,7 @@ class Relationship
 
     public static function getAll()
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -115,7 +115,7 @@ class Relationship
 
     public static function findByID($relation_id)
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -135,7 +135,7 @@ class Relationship
 
     public static function findByFrom($from_user)
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -159,7 +159,7 @@ class Relationship
 
     public static function findByTo($to_user)
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -183,7 +183,7 @@ class Relationship
 
     public static function findByToOrFrom($user_id)
     {
-        if(!defined('RELATIONSHIP_STORAGE_FILE')) 
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
         {
             $response               = array();
             $response['status']     = 'error';  
@@ -204,6 +204,31 @@ class Relationship
             if($relationship["to_user"] == $user_id || $relationship["from_user"] == $user_id) $user_relationships[] = new Relationship($relationship);
         }
         return $user_relationships;
+    }
+
+    public static function findByFromAndTo($user_from, $user_to)
+    {
+        if(!defined('RELATIONSSHIP_STORAGE_FILE')) 
+        {
+            $response               = array();
+            $response['status']     = 'error';  
+            $response['message']    = 'User storage file not defined';
+            $response['code']       = 500;
+            $response['hint']       = 'Configuration file may not included';
+            return json_encode($response);
+        }
+        if(!file_exists(RELATIONSSHIP_STORAGE_FILE))
+        {
+            file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
+        }
+
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
+        foreach($relationships as $relationship)
+        {
+            if($relationship["to_user"] == $user_to && $relationship["from_user"] == $user_from) return new Relationship($relationship);
+            if($relationship["to_user"] == $user_from && $relationship["from_user"] == $user_to) return new Relationship($relationship);
+        }
+        return null;
     }
 
 

@@ -151,9 +151,23 @@ class ProfileEndpoint extends Endpoint
                 return $a->getUsername() <=> $b->getUsername();
             });
 
-            $user = array_map(function($user) {
-                return $user->asPrivateArray();
-            }, $user);
+            $userArray = array();
+            foreach($user as $u)
+            {
+                $uArray = $u->asPrivateArray();
+                require_once "./entities/Relationship.php";
+                $relationshipX = \entities\Relationship::findByFromAndTo($user_id, $u->getUserID());
+                if($relationshipX != null)
+                {
+                    $uArray["relationship"] = $relationshipX->getStatus();
+                }
+                else 
+                {
+                    $uArray["relationship"] = -1;
+                }
+                $userArray[] = $uArray;
+            }
+            $user = $userArray;
         }
 
         $response               = array();
