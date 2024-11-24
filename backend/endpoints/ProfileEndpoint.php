@@ -176,6 +176,7 @@ class ProfileEndpoint extends Endpoint
         $response["code"]       = "200";
         $response["hint"]       = "User profile found";
         $response["data"]       = $user;
+        $response["user_id"]    = $user_id;
 
         return $response;
     }

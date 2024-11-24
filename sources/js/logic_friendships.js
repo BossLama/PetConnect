@@ -3,6 +3,8 @@ let active_relationships = [];
 let pending_relationships = [];
 let recommended_profiles = [];
 
+var user_id = null;
+
 // Load profiles from the server
 function loadProfiles()
 {
@@ -19,6 +21,7 @@ function loadProfiles()
 
         if(data.status == "success")
         {
+            user_id = data.user_id;
             data.data.forEach(profile => {
                 renderProfile(profile);
             });
@@ -33,6 +36,7 @@ function loadProfiles()
 // Render profile
 function renderProfile(profile)
 {
+    if(profile.user_id == user_id) return;
     var user = document.createElement('div');
     user.className = 'user';
 
