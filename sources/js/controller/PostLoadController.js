@@ -35,6 +35,7 @@ class PostLoadController
     renderPost(post)
     {
         var username        = post.creator.username;
+        var profile_picture = post.creator.profile_picture;
         var posted_at       = post.posted_at;
         var visibility      = post.visibility;
         var message         = post.message;
@@ -70,7 +71,7 @@ class PostLoadController
 
         postElement.innerHTML = `
             <div class="header">
-                <img src="resources/placeholder/plaho_profile_dog.png" alt="Profile">
+                <img src="`+ profile_picture +`" alt="Profile">
                 <p class="username">`+ username +`</p>
                 <p class="posted">`+ timeString +` - `+ visibility +`</p>
             </div>

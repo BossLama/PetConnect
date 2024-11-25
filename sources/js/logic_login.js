@@ -143,12 +143,21 @@ function onRegister()
     var password    = document.getElementById("input_register_password");
     var username    = document.getElementById("input_register_username");
     var zip         = document.getElementById("input_register_zip");
+    var pet         = document.getElementById("input_register_pet");
+
+    if(pet.value == "none")
+    {
+        const unicornManager =  new UnicornAlertHandler();
+        unicornManager.createAlert(UnicornAlertTypes.ERROR, "Bitte wählen Sie ein Haustier aus", 5000);
+        return;
+    }
 
     var request_parameter = {
         email: mail.value,
         password: password.value,
         username: username.value,
-        zip: zip.value
+        zip: zip.value,
+        pet: pet.value
     }
 
     var request_body = {

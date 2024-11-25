@@ -40,10 +40,11 @@ function renderProfile(profile)
     var user = document.createElement('div');
     user.className = 'user';
 
-    var friendshipStatus = profile.relationship;
+    var friendshipStatus    = profile.relationship;
+    var profile_picture     = profile.profile_picture;
 
     user.innerHTML = `<div class="group">
-                        <img src="./resources/placeholder/plaho_profile_dog.png" alt="Profilbild">
+                        <img src="`+ profile_picture +`" alt="Profilbild">
                         <div class="user-info">
                             <h3>`+ profile.username +`</h3>
                             <p>Hundebesitzer</p>

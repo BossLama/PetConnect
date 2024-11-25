@@ -32,6 +32,7 @@ class UserProfile
     private $zip_code;
     private $pet_type;
     private $animal_breed;
+    private $profile_picture;
 
     private $created_at;
     private $last_login;
@@ -47,6 +48,7 @@ class UserProfile
         $this->zip_code   = $parameters['zip_code'] ?? null;                        // Zip code of the user
         $this->pet_type   = $parameters['pet_type'] ?? null;                        // Type of pet (e.g. dog, cat, ...)
         $this->animal_breed = $parameters['animal_breed'] ?? null;                  // Breed of the pet (e.g. Golden Retriever)
+        $this->profile_picture = $parameters['profile_picture'] ?? null;            // Profile picture of the user
         $this->created_at = $parameters['created_at'] ?? date('Y-m-d H:i:s');       // Date of profile creation
         $this->last_login = $parameters['last_login'] ?? null;                      // Date of last login
         $this->status     = $parameters['status'] ?? 1;                             // Status of the profile (0 = unverified, 1 = active, 2 = banned)
@@ -141,7 +143,8 @@ class UserProfile
             'created_at'    => $this->created_at,
             'last_login'    => $this->last_login,
             'status'        => $this->status,
-            'role'          => $this->role
+            'role'          => $this->role,
+            'profile_picture' => $this->profile_picture
         );
     }
 
@@ -157,7 +160,8 @@ class UserProfile
             'created_at'    => $this->created_at,
             'last_login'    => $this->last_login,
             'status'        => $this->status,
-            'role'          => $this->role
+            'role'          => $this->role,
+            'profile_picture' => $this->profile_picture
         );
     }
 
@@ -315,6 +319,7 @@ class UserProfile
     public function getLastLogin()       { return $this->last_login; }
     public function getStatus()          { return $this->status; }
     public function getRole()            { return $this->role; }
+    public function getProfilePicture()  { return $this->profile_picture; }
 
     // ============================ SETTER METHODS ============================
     public function setUserID($user_id)         { $this->user_id = $user_id; }
@@ -328,4 +333,5 @@ class UserProfile
     public function setLastLogin($last_login)   { $this->last_login = $last_login; }
     public function setStatus($status)          { $this->status = $status; }
     public function setRole($role)              { $this->role = $role; }
+    public function setProfilePicture($profile_picture) { $this->profile_picture = $profile_picture; }
 }

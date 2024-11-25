@@ -40,7 +40,8 @@
         color: rgba(var(--color-text), 0.5);
     }
 
-    .formular .line input
+    .formular .line input,
+    .formular .line select
     {
         width: 100%;
         background: rgba(var(--color-text), 0.05);
@@ -52,6 +53,11 @@
         margin-top: 0.25rem;
         outline: none;
     }
+
+        .formular .line option
+        {
+            color: #000;
+        }
 
         .formular .line-check
         {

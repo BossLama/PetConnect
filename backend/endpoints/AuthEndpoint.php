@@ -47,6 +47,7 @@ class AuthEndpoint extends Endpoint
         $email      = $this->parameters["email"] ?? null;
         $password   = $this->parameters["password"] ?? null;
         $zip        = $this->parameters["zip"] ?? null;
+        $pet        = $this->parameters["pet"] ?? null;
 
         if($username == null || $email == null || $password == null || $zip == null)
         {
@@ -55,6 +56,16 @@ class AuthEndpoint extends Endpoint
             $response["message"]    = "Bitte geben Sie alle erforderlichen Parameter an";
             $response["code"]       = "400";
             $response["hint"]       = "Please provide all required parameters";
+            return $response;
+        }
+
+        if($pet == null || $pet == "none")
+        {
+            $response               = array();
+            $response["status"]     = "error";
+            $response["message"]    = "Bitte geben Sie eine Tierart an";
+            $response["code"]       = "400";
+            $response["hint"]       = "Please provide a pet type";
             return $response;
         }
 
@@ -73,6 +84,9 @@ class AuthEndpoint extends Endpoint
         $user_data["email"]     = $email;
         $user_data["password"]  = $password;
         $user_data["zip_code"]  = $zip;
+        $user_data["pet_type"]  = $pet;
+        $user_data["profile_picture"] = "./resources/profiles/sys_profile_" . $pet . ".svg";
+
 
         //$four_digit_id = rand(1000, 9999);
         //$user_data["username"]  = $username . ":" . $four_digit_id;
