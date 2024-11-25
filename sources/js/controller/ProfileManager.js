@@ -94,6 +94,11 @@ class ProfileManager
         usernameLabels.forEach(label => {
             label.innerHTML = user.username;
         });
+
+        let profilePictures = document.querySelectorAll('.own-profile-picture');
+        profilePictures.forEach(picture => {
+            picture.src = user.profile_picture;
+        });
     }
 }
 
