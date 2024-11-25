@@ -83,7 +83,13 @@ class Post
     public function canSee($userID)
     {
         if ($this->visibility == "0") return $this->creator == $userID;
-        if ($this->visibility == "1") return $this->creator == $userID; //TODO: Check if user is friend;
+        if ($this->visibility == "1")
+        {
+            if($this->creator == $userID) return true;
+            require_once "./entities/Relationship.php";
+            $relationship = Relationship::findByFromAndTo($this->creator, $userID);
+            return $relationship != null && $relationship->getStatus() == 2;
+        }
         if ($this->visibility == "2")
         {
             require_once "./entities/UserProfile.php";
