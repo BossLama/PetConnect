@@ -126,27 +126,69 @@ class RelationshipEndpoint extends Endpoint
         }
 
         require_once "./entities/Relationship.php";
-        $relationship = new \entities\Relationship(array(
-            "from_user" => $sender,
-            "to_user" => $receiver
-        ));
-        $relationship->save();
+        // Check if a relationship already exists
+        $relationship = \entities\Relationship::findByFromAndTo($sender, $receiver);
+        if($relationship)
+        {
+            if($relationship->getStatus() == 0)
+            {
+                $response               = array();
+                $response["status"]     = "error";
+                $response["message"]    = "Diese Anfrage wurde blockiert";
+                $response["code"]       = "400";
+                $response["hint"]       = "Nutzer haben sich blockiert";
+                return $response;
+            }
+            else if($relationship->getStatus() == 1)
+            {
+                if($relationship->getToUser() == $sender)
+                {
+                    $relationship->setStatus(2);
+                    $relationship->save();
+                    $response               = array();
+                    $response["status"]     = "success";
+                    $response["message"]    = "Anfrage wurde akzeptiert";
+                    $response["code"]       = "200";
+                    $response["hint"]       = "Anfrage wurde akzeptiert";
+                    return $response;
+                }
+                else
+                {
+                    $relationship->delete();
+                    $response               = array();
+                    $response["status"]     = "success";
+                    $response["message"]    = "Anfrage wurde zurückgezogen";
+                    $response["code"]       = "200";
+                    $response["hint"]       = "Anfrage wurde zurückgezogen";
+                    return $response;
+                }
+            }
+            else if($relationship->getStatus() == 2)
+            {
+                $relationship->delete();
+                $response               = array();
+                $response["status"]     = "success";
+                $response["message"]    = "Freundschaft wurde gelöscht";
+                $response["code"]       = "200";
+                $response["hint"]       = "Freundschaft wurde gelöscht";
+                return $response;
+            }
+        }
+        else
+        {
+            $relationship = new \entities\Relationship([]);
+            $relationship->setFromUser($sender);
+            $relationship->setToUser($receiver);
+            $relationship->setStatus(1);
+            $relationship->save();
+            $response               = array();
+            $response["status"]     = "success";
+            $response["message"]    = "Anfrage wurde gesendet";
+            $response["code"]       = "200";
+            $response["hint"]       = "Anfrage wurde gesendet";
+            return $response;
+        }
 
-        require_once "./entities/Notification.php";
-        $notification = new \entities\Notification(array(
-            "type" => 0,
-            "receiver" => $receiver,
-            "sender" => $sender,
-            "related_item_id" => $relationship->getRelationID()
-        ));
-        $notification->save();
-
-        $response               = array();
-        $response["status"]     = "success";
-        $response["message"]    = "Beziehung erstellt";
-        $response["code"]       = "200";
-        $response["data"]       = $relationship->asArray();
-        return $response;
     }
 
     public function onDelete() : array

@@ -31,11 +31,17 @@ class Relationship
 
     public function __construct(array $parameters)
     {
-        $this->relation_id      = $parameters["relation_id"];                             // ID of relationship
+        $this->relation_id      = $parameters["relation_id"] ?? $this->createRelationID();                             // ID of relationship
         $this->status           = $parameters['status'] ?? 1;                             // Status of the profile (0 = blocked, 1 = pending, 2 = friends)
         $this->date             = $parameters['date'] ?? date('Y-m-d H:i:s');     // Date of last relationsship update between users
         $this->from_user        = $parameters['from_user'] ?? null;                       // Sender of the request / blocker
         $this->to_user          = $parameters['to_user'] ?? null;                         // recipent of the request / blocked user
+    }
+
+    public function createRelationID()
+    {
+        $this->relation_id = uniqid();
+        return $this->relation_id;
     }
 
     public function asArray()
@@ -65,7 +71,7 @@ class Relationship
             file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode(array()));
         }
 
-        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE, true));
+        $relationships = json_decode(file_get_contents(RELATIONSSHIP_STORAGE_FILE), true);
         $relationships[$this->relation_id] = $this->asArray();
         file_put_contents(RELATIONSSHIP_STORAGE_FILE, json_encode($relationships, JSON_PRETTY_PRINT));       // TODO: Remove JSON_PRETTY_PRINT for production
     }

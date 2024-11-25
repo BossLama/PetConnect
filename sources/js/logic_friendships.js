@@ -50,7 +50,7 @@ function renderProfile(profile)
                             <p>Aus `+ profile.zip_code +`</p>
                         </div>
                     </div>`;
-    user.appendChild(getRequestButton(friendshipStatus));
+    user.appendChild(getRequestButton(friendshipStatus, profile.user_id));
     
     appendUser(friendshipStatus, user);
 
@@ -66,6 +66,7 @@ function appendUser(status, profile)
             recommended_profiles.push(profile);
             break;
         case 1:
+        case 3:
             document.getElementById("friendlist_pending").appendChild(profile);
             pending_relationships.push(profile);
             break;
@@ -86,25 +87,61 @@ function getEmptyProfile()
 }
 
 // Returns the button for the friendship request
-function getRequestButton(status)
+function getRequestButton(status, receiver)
 {
     var button = document.createElement('button');
+    button.onclick = function() { requestFriendship(receiver); };
     switch(status)
     {
         case -1:
             button.innerHTML = "Freundschaft anfragen";
             break;
         case 1:
-            button.innerHTML = "Freundschaft annehmen";
+            button.innerHTML = "Anfrage annehmen";
             button.classList.add("pending");
             break;
         case 2:
             button.innerHTML = "Freundschaft beenden";
             button.classList.add("active");
             break;
+        case 3:
+            button.innerHTML = "Anfrage zurückziehen";
+            button.classList.add("pending");
+            break;
     }
     return button;
 }
+
+// Request friendship
+function requestFriendship(receiver)
+{
+    var parameters = {
+        "receiver": receiver
+    }
+
+    fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': profileManager.getAuthToken()
+        },
+        body: JSON.stringify({
+            "endpoint_id": "relationship",
+            "parameters": parameters
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status == "success") location.reload();
+        if(data.status == "error")
+        {
+            const unicornManager =  new UnicornAlertHandler();
+            unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
+        }
+    });
+}
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -160,6 +160,10 @@ class ProfileEndpoint extends Endpoint
                 if($relationshipX != null)
                 {
                     $uArray["relationship"] = $relationshipX->getStatus();
+                    if($relationshipX->getFromUser() == $user_id && $relationshipX->getStatus() == 1)
+                    {
+                        $uArray["relationship"] = 3;
+                    }
                 }
                 else 
                 {
