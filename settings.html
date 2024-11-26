@@ -23,7 +23,7 @@
         <h1>PetConnect</h1>
         <ul>
             <a href="./index.html"><li><img src="resources/icons/icon_light_home.svg" alt="Home"> Startseite</li></a>
-            <li id="button_show_post" class="clickable"><img src="resources/icons/icon_light_add.svg" alt="Post"> Posten</li>
+            <a href="./index.html?post=true"><li><img src="resources/icons/icon_light_add.svg" alt="Post"> Posten</li></a>
             <a href="./petmap.html"><li><img src="resources/icons/icon_light_explore.svg" alt="Map"> PetMap</li></a>
             <a href="./inbox.html"><li><img src="resources/icons/icon_light_mail.svg" alt="Inbox"> Inbox</li></a>
             <a href="./friendships.html"><li><img src="resources/icons/icon_light_group.svg" alt="Friends"> Freunde</li></a>
@@ -61,12 +61,9 @@
                 <option value="rabbit">Hase</option>
             </select>
         </div>
-        <div class="line">
-            <label for="">Sicheres Login</label>
-            <button class="button">2FA aktivieren</button>
-        </div>
         <div class="buttons">
             <button id="button_save" class="button-save">Änderungen speichern</button>
+            <button class="button-save">2FA aktivieren</button>
             <button id="button_delete" class="button-delete">Kontodaten löschen</button>
         </div>
     </main>
