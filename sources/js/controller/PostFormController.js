@@ -33,12 +33,14 @@ class PostFormController
     {
         var content = document.getElementById("input_message").value;
         var visibility = document.getElementById("input_visibility").value;
+        var isReport = document.getElementById("input_message_missing_report").checked;
 
         console.log(content);
 
         var request_parameter = {
             message: content,
-            visibility: visibility
+            visibility: visibility,
+            missing_report: isReport
         }
 
         var request_body = {

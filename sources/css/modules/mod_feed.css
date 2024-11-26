@@ -23,6 +23,11 @@
         max-width: 600px;
     }
 
+    .feed .post.missing-report
+    {
+        background-color: rgba(217, 61, 61, 0.1);
+    }
+
         .feed .post .header
         {
             display: flex;

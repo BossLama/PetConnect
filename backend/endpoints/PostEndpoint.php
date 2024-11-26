@@ -145,6 +145,7 @@ class PostEndpoint extends Endpoint
         $creator            = $token_payload['user_id'];
         $message            = $this->parameters['message'] ?? "";
         $image              = $this->parameters['image'] ?? null;
+        $missing_report     = $this->parameters['missing_report'] ?? null;
         $related_image_id   = null;
 
         if($message == "" || strlen($message) < 10)
@@ -172,6 +173,7 @@ class PostEndpoint extends Endpoint
             'reply_to'      => $reply_to,
             'type'          => $type,
             'creator'       => $creator,
+            'missing_report'=> $missing_report,
             'message'       => $message,
             'related_image_id' => $related_image_id
         ));

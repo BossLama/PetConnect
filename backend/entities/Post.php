@@ -28,7 +28,7 @@ class Post
     private $type;              // the type of the post (0 = normal post, 1 = comment)
     private $shares;            // how often a post was shared
     private $likes;             // how often a post was liked
-    private $comments;          // how often a post was commented
+    private $missing_report;    // is the post a missing report (true/false)
     private $creator;           // user_id
     private $posted_at;         // posted_at
     private $message;           // text message of the comment
@@ -44,6 +44,7 @@ class Post
         $this->type                 = $post['type'] ?? 0;
         $this->shares               = $post['shares'] ?? [];
         $this->likes                = $post['likes'] ?? [];
+        $this->missing_report       = $post['missing_report'] ?? false;
         $this->creator              = $post['creator'] ?? null;
         $this->posted_at            = $post['posted_at'] ?? date('Y-m-d H:i:s');
         $this->message              = $post['message'] ?? null;
@@ -70,7 +71,7 @@ class Post
             'type'                  => $this->type,
             'shares'                => $this->shares,
             'likes'                 => $this->likes,
-            'comments'              => $this->comments,
+            "missing_report"        => $this->missing_report,
             'creator'               => $this->creator,
             'posted_at'             => $this->posted_at,
             'message'               => $this->message,
@@ -201,6 +202,7 @@ class Post
     public function getPostedAt(): mixed                    {return $this->posted_at;}
     public function getMessage(): string                    {return $this->message;}
     public function getLikes(): array                         {return $this->likes;}
+    public function getMissingReport(): bool                 {return $this->missing_report;}
     public function getShares(): array                        {return $this->shares;}
     public function getReplyTo(): string                       {return $this->reply_to;}
     // ============================ SETTER METHODS ============================
@@ -209,6 +211,7 @@ class Post
     public function setPostedAt($posted_at): void           {$this->posted_at = $posted_at;}
     public function setMessage($message): void              {$this->message = $message;}
     public function setLikes($likes): void                  {$this->likes = $likes;}
+    public function setMissingReport($missing_report): void {$this->missing_report = $missing_report;}
     public function setShares($shares): void                {$this->shares = $shares;}
     public function setReplyTo($reply_to): void             {$this->reply_to = $reply_to;}
 }

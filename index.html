@@ -50,10 +50,10 @@
     </main>
 
     <form class="post-form hidden" id="post_form">
-        <div class="form">
+        <div class="form" id="form_message">
             <div class="header">
                 <img src="resources/placeholder/plaho_profile_dog.png" alt="Profile" class="own-profile-picture">
-                <p class="username">Maxi</p>
+                <p class="username username-label">Maxi</p>
                 <select name="input_visibility" id="input_visibility" class="select">
                     <option value="2">Kommune</option>
                     <option value="0">Privat</option>
@@ -62,8 +62,39 @@
                 </select>
             </div>
             <textarea name="input_message" id="input_message" placeholder="Erzähle deine Geschichte..."></textarea>
+            <div class="checkbox-line">
+                <input type="checkbox" name="input_message_missing_report" id="input_message_missing_report">
+                <label for="input_message_missing_report">Als Vermisstenanzeige kennzeichnen</label>
+            </div>
             <div class="buttons">
-                <button class="button-submit" type="button">Posten</button>
+                <button class="button-submit" type="button" id="button_submit_message">Posten</button>
+                <button class="button-event" type="button" id="button_create_meetup">MeetUp</button>
+                <button class="button-cancel" type="button">Abbrechen</button>
+            </div>
+        </div>
+
+        <div class="form hidden" id="form_meetup">
+            <div class="header">
+                <h2>MeetUp</h2>
+            </div>
+            <div class="line">
+                <label for="input_meetup_title">Name des MeetUps</label>
+                <input type="text" name="input_meetup_title" id="input_meetup_title" placeholder="Das Hundetreffen">
+            </div>
+            <div class="line">
+                <label for="input_meetup_date">Datum des MeetUps</label>
+                <input type="text" name="input_meetup_date" id="input_meetup_date" placeholder="25.03.2029">
+            </div>
+            <div class="line">
+                <label for="input_meetup_time">Uhrzeit des MeetUps</label>
+                <input type="text" name="input_meetup_time" id="input_meetup_time" placeholder="10:00 Uhr">
+            </div>
+            <div class="line">
+                <label for="input_meetup_position">Latitude, Longitude</label>
+                <input type="text" name="input_meetup_position" id="input_meetup_position" placeholder="48.677836, 12.786346">
+            </div>
+            <div class="buttons">
+                <button class="button-submit" type="button">Erstellen</button>
                 <button class="button-cancel" type="button">Abbrechen</button>
             </div>
         </div>

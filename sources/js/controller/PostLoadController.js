@@ -34,16 +34,23 @@ class PostLoadController
 
     renderPost(post)
     {
+
+        console.log(post);
+
         var username        = post.creator.username;
         var profile_picture = post.creator.profile_picture;
         var posted_at       = post.posted_at;
         var visibility      = post.visibility;
         var message         = post.message;
+        var missing_report  = post.missing_report;
 
         if (visibility == "0") visibility = "Privat";
         if (visibility == "1") visibility = "Freunde";
         if (visibility == "2") visibility = "Kommune";
         if (visibility == "3") visibility = "Öffentlich";
+
+        var missing_report_class = "";
+        if (missing_report) missing_report_class = "missing-report";
 
         var posted_at = new Date(posted_at);
         var now = new Date();
@@ -67,7 +74,7 @@ class PostLoadController
 
         var postElement = document.createElement("article");
         postElement.dataset.post_id = post.post_id;
-        postElement.className = "post";
+        postElement.className = "post " + missing_report_class;
 
         postElement.innerHTML = `
             <div class="header">
