@@ -30,7 +30,7 @@ function addEvent(name, lat, lon) {
   
     const marker = L.marker([lat, lon], { icon: customIcon }).addTo(mapView);
 
-    marker.bindPopup(`<b>${name}</b>`).openPopup();
+    marker.bindPopup(`<b>${name}</b>`);
 }
  
 function addClinic(name, lat, lon) {
@@ -43,5 +43,5 @@ function addClinic(name, lat, lon) {
   
     const marker = L.marker([lat, lon], { icon: customIcon }).addTo(mapView);
 
-    marker.bindPopup(`<b>${name}</b>`).openPopup();
+    marker.bindPopup(`<b>${name}</b>`);
 }

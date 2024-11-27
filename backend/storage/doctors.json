@@ -4,5 +4,23 @@
         "name": "Dr. Freiburg",
         "latitude": "48.303832",
         "longitude": "11.356856"
+    },
+    {
+        "id": "6746e4a1ac93a",
+        "name": "Klinikum Dachau",
+        "latitude": "48.260204",
+        "longitude": "11.432447"
+    },
+    {
+        "id": "6746e4cc1edc8",
+        "name": "Dr. Markus Hausen",
+        "latitude": "48.261039",
+        "longitude": "11.451822"
+    },
+    {
+        "id": "6746e4e5c4d76",
+        "name": "Satirius Klinikum",
+        "latitude": "48.266847",
+        "longitude": "11.471613"
     }
 ]
