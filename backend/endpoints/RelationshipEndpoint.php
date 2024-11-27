@@ -143,6 +143,16 @@ class RelationshipEndpoint extends Endpoint
             {
                 if($relationship->getToUser() == $sender)
                 {
+
+                    require_once "./entities/Notification.php";
+                    $notification = new \entities\Notification([]);
+                    $notification->setType(0);
+                    $notification->setReceiver($relationship->getFromUser());
+                    $notification->setSender($relationship->getToUser());
+                    $notification->setRelatedItemID($relationship->getRelationID());
+                    $notification->setMessage("Freundschaftsanfrage wurde akzeptiert");
+                    $notification->save();
+
                     $relationship->setStatus(2);
                     $relationship->save();
                     $response               = array();
@@ -154,6 +164,13 @@ class RelationshipEndpoint extends Endpoint
                 }
                 else
                 {
+                    require_once "./entities/Notification.php";
+                    $notifications = \entities\Notification::findByRelatedItem($relationship->getRelationID(), 0);
+                    foreach($notifications as $notification)
+                    {
+                        $notification->delete();
+                    }
+
                     $relationship->delete();
                     $response               = array();
                     $response["status"]     = "success";
@@ -165,6 +182,14 @@ class RelationshipEndpoint extends Endpoint
             }
             else if($relationship->getStatus() == 2)
             {
+
+                require_once "./entities/Notification.php";
+                $notifications = \entities\Notification::findByRelatedItem($relationship->getRelationID(), 0);
+                foreach($notifications as $notification)
+                {
+                    $notification->delete();
+                }
+
                 $relationship->delete();
                 $response               = array();
                 $response["status"]     = "success";
@@ -176,6 +201,15 @@ class RelationshipEndpoint extends Endpoint
         }
         else
         {
+
+            require_once "./entities/Notification.php";
+            $notification = new \entities\Notification([]);
+            $notification->setType(0);
+            $notification->setReceiver($receiver);
+            $notification->setSender($sender);
+            $notification->setMessage("Neue Freundschaftsanfrage erhalten");
+            $notification->save();
+
             $relationship = new \entities\Relationship([]);
             $relationship->setFromUser($sender);
             $relationship->setToUser($receiver);

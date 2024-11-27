@@ -29,6 +29,7 @@ class Notification
     private $related_item_id;   // Related Item ID
     private $created_at;        // created_at
     private $seen;              // seen
+    private $message;           // message
 
     public function __construct (array $notification)
     {
@@ -39,6 +40,7 @@ class Notification
         $this->related_item_id  = $notification['related_item_id'] ?? null;
         $this->created_at       = $notification['created_at'] ?? date('Y-m-d H:i:s');
         $this->seen             = $notification['seen'] ?? 0;
+        $this->message          = $notification['message'] ?? null;
     }
 
     public function generateNotificationID(): string
@@ -50,14 +52,14 @@ class Notification
     {
         $notifications = self::getAll();
         $notifications[$this->notification_id] = $this->toArray();
-        file_put_contents(NOTIFICATION_STORAGE_FILE, json_encode($notifications));
+        file_put_contents(NOTIFICATION_STORAGE_FILE, json_encode($notifications, JSON_PRETTY_PRINT));
     }
 
     public function delete()
     {
         $notifications = self::getAll();
         unset($notifications[$this->notification_id]);
-        file_put_contents(NOTIFICATION_STORAGE_FILE, json_encode($notifications));
+        file_put_contents(NOTIFICATION_STORAGE_FILE, json_encode($notifications, JSON_PRETTY_PRINT));
     }
 
     public function toArray(): array
@@ -69,7 +71,8 @@ class Notification
             'sender'            => $this->sender,
             'related_item_id'   => $this->related_item_id,
             'created_at'        => $this->created_at,
-            'seen'              => $this->seen
+            'seen'              => $this->seen,
+            'message'           => $this->message
         ];
     }
 
@@ -107,6 +110,20 @@ class Notification
         return $receiver_notifications;
     }
 
+    public static function findByRelatedItem(string $related_item_id, $type)
+    {
+        $notifications = self::getAll();
+        $related_item_notifications = [];
+        foreach ($notifications as $notification)
+        {
+            if ($notification['related_item_id'] == $related_item_id && $notification['type'] == $type)
+            {
+                $related_item_notifications[] = new Notification($notification);
+            }
+        }
+        return $related_item_notifications;
+    }
+
 
     // Getter
     public function getNotificationID(){ return $this->notification_id; }
@@ -116,6 +133,7 @@ class Notification
     public function getRelatedItemID(){ return $this->related_item_id; }
     public function getCreatedAt(){ return $this->created_at; }
     public function getSeen(){ return $this->seen; }
+    public function getMessage(){ return $this->message; }
     
     // Setter
     public function setNotificationID($notification_id){ $this->notification_id = $notification_id; }
@@ -125,5 +143,6 @@ class Notification
     public function setRelatedItemID($related_item_id){ $this->related_item_id = $related_item_id; }
     public function setCreatedAt($created_at){ $this->created_at = $created_at; }
     public function setSeen($seen){ $this->seen = $seen; }
+    public function setMessage($message){ $this->message = $message; }
 
 }

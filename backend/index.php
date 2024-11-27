@@ -83,6 +83,13 @@ try
             echo json_encode($response, JSON_PRETTY_PRINT);
             break;
 
+        case "notification":
+            require_once "./endpoints/NotificationEndpoint.php";
+            $endpoint = new endpoints\NotificationEndpoint();
+            $response = $endpoint->handleRequest($parameters, $get_parameters, $_SERVER['REQUEST_METHOD'], $token, false);
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            break;
+
         case "twofactor":
             require_once "./endpoints/TwoFactorEndpoint.php";
             $endpoint = new endpoints\TwoFactorEndpoint();
