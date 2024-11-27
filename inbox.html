@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freunde | PetConnect</title>
+    <title>Inbox | PetConnect</title>
     <!-- Styling -->
-    <link rel="stylesheet" href="sources/css/stylesheet_friendship.css">
+    <link rel="stylesheet" href="sources/css/stylesheet_inbox.css">
     <!-- Scripting -->
     <script src="sources/js/plugins/UnicornAlert.js"></script>
     <script src="sources/js/handler/APIHandler.js"></script>
     <script src="sources/js/controller/ProfileManager.js"></script>
-    <script src="sources/js/logic_friendships.js"></script>
+    <script src="sources/js/logic_inbox.js"></script>
 </head>
 <body>
     <nav class="side-nav" id="side-navigation">
@@ -29,14 +29,8 @@
         </div>
     </nav>
     <main id="friendlist" class="friend-list">
-        <section id="friendlist_active" class="list">
-            <h2>Deine Freundschaften</h2>
-        </section>
-        <section id="friendlist_pending" class="list">
-            <h2>Aktuelle Anfragen</h2>
-        </section>
-        <section id="friendlist_recommend" class="list">
-            <h2>Vorschläge</h2>
+        <section id="notifications" class="list">
+            <h2>Neue Benachrichtungen</h2>
         </section>
     </main>
 </body>

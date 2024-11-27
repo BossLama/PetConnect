@@ -58,19 +58,27 @@ class NotificationEndpoint extends Endpoint
         }
         $user_id = \entities\JsonWebToken::fromToken($tokenString)->payload['user_id'];
 
-        require_once '../entities/Notification.php';
+        require_once './entities/Notification.php';
         $notifications = \entities\Notification::findByReceiver($user_id);
-        $response_notifications = array();
+        $filtered_notifications = array();
+
+        // delete all notifications
         foreach($notifications as $notification)
         {
-            if($notification->getSeen() == 0)  $response_notifications[] = $notification->toArray();
+            $filtered_notifications[] = $notification->toArray();
             $notification->delete();
         }
-        $response               = array();
-        $response["status"]     = "success";
-        $response["message"]    = "Notifications fetched successfully";
-        $response["code"]       = "200";
-        $response["notifications"] = $response_notifications;
+
+        usort($filtered_notifications, function($a, $b) {
+            return strtotime($b['created_at']) - strtotime($a['created_at']);
+        });
+
+        $response = array();
+        $response["status"] = "success";
+        $response["message"] = "Notifications fetched successfully";
+        $response["code"] = "200";
+        $response["notifications"] = $filtered_notifications;
+        return $response;
     }
 
     public function onPost() : array

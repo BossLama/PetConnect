@@ -1,0 +1,8 @@
+@import url(modules/mod_default.css);
+@import url(modules/mod_side-nav.css);
+@import url(modules/mod_friend-list.css);
+
+.notification_date_label
+{
+    color: rgba(255, 255, 255, 0.3)
+}
