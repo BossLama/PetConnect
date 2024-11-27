@@ -35,7 +35,7 @@ function addEvent(name, lat, lon) {
  
 function addClinic(name, lat, lon) {
     const customIcon = L.icon({
-      iconUrl: 'https://img.icons8.com/color/48/doctor-male-skin-type-5.png',
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/403/403890.png',
       iconSize: [40, 40],
       iconAnchor: [20, 40], 
       popupAnchor: [0, -40]

@@ -3,20 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Einstellungen | PetConnect</title>
+    <title>Arzt eintragen | PetConnect</title>
     <!-- Styling -->
     <link rel="stylesheet" href="sources/css/stylesheet_settings.css">
-    <!-- MapView -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
     <!-- Scripting -->
     <script src="sources/js/handler/APIHandler.js"></script>
     <script src="sources/js/controller/ProfileManager.js"></script>
-    <script src="sources/js/controller/SettingsController.js"></script>
 </head>
 <body>
     <nav class="side-nav" id="side-navigation">
@@ -63,8 +55,23 @@
         </div>
 
         <div class="buttons">
-            <button id="button_save" class="button-save">Eintragung anfragen</button>
+            <button id="button_save" class="button-save" onclick="save()">Eintragung anfragen</button>
         </div>
     </main>
+
+    <script>
+        function save()
+        {
+            var name = document.getElementById("input_verify_name").value;
+            var latitude = document.getElementById("input_verify_location").value.split(",")[0];
+            var longitude = document.getElementById("input_verify_location").value.split(",")[1];
+
+            fetch("./backend/fast_actions/action_doctor_entry.php?name="+ name +"&longitude="+ longitude +"&latitude="+ latitude +"")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+        }
+    </script>
 </body>
 </html>
