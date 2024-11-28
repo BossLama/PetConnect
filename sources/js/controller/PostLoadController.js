@@ -69,8 +69,11 @@ class PostLoadController
 
         var likeClass = "like";
         if(post.liked) likeClass = "liked";
-
         var likeCount = post.likes.length;
+
+        var hasImage = post.related_image_id != null;
+        var image64 = "";
+        if(hasImage) image64 = post.related_image_id;
 
         var postElement = document.createElement("article");
         postElement.dataset.post_id = post.post_id;
@@ -88,6 +91,13 @@ class PostLoadController
             reply_to_message = reply_box.outerHTML;
         }
 
+        // Base64 image to <img src="data:image/png;base64, ...">
+        var imageElement = "";
+        if(hasImage)
+        {
+            imageElement = `<img src="data:image/png;base64, `+ image64 +`" alt="Post image" class="post-image">`;
+        }
+
 
         postElement.innerHTML = `
             <div class="header">
@@ -97,6 +107,7 @@ class PostLoadController
             </div>
             `+ reply_to_message +`
             <div class="message">`+ message +`</div>
+            `+ imageElement +`
             <div class="controlls">
                 <button class="button-controll like"><img src="resources/icons/`+ likeIcon +`" alt="Like">
                 <p class="like-count">`+ likeCount +`</p></button>

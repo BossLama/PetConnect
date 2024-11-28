@@ -113,6 +113,17 @@ class PostEndpoint extends Endpoint
                     }
                 }
 
+                // Load image if available
+                if(isset($postArray['related_image_id']))
+                {
+                    $imagePath = IMAGE_STORAGE_FOLDER . $postArray['related_image_id'] . ".image";
+                    if(file_exists($imagePath))
+                    {
+                        $imageData = file_get_contents($imagePath);
+                        $postArray['related_image_id'] = base64_encode($imageData);
+                    }
+                }
+
                 $postArray['creator'] = $profileCreator;
                 $postArray['liked']   = $post->hasLiked($token_payload['user_id']);
                 $filtered_posts[] = $postArray;
