@@ -16,7 +16,7 @@ class ErrorLogger
 
         $date = date("Y-m-d H:i:s");
         $log_message = "[" . $date . "] " . $message . "\n";
-        file_put_contents(self::$log_file, $log_message, FILE_APPEND);
+        //file_put_contents(self::$log_file, $log_message, FILE_APPEND);
     }
 }
 
