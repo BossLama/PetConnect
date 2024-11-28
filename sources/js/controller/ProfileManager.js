@@ -14,8 +14,6 @@ class ProfileManager
 
     getAuthToken()
     {
-        console.log("Requested auth token");
-        console.log(localStorage.getItem('authToken'));
         return "Bearer " + localStorage.getItem('authToken');
     }
 
@@ -51,7 +49,7 @@ class ProfileManager
 
     isAuthorized(callback)
     {
-        fetch(API_URL + "?endpoint_id=auth", {
+        fetch(API_URL + "?endpoint_id=auth&token=" + this.getAuthToken(), {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

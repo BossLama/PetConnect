@@ -20,6 +20,9 @@
  *      }
  *  }
  */
+header("Access-Control-Allow-Origin: *"); // Erlaubt alle Ursprünge
+header("Access-Control-Allow-Headers: Authorization"); // Erlaubt den Authorization Header
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Erlaubt die entsprechenden Methoden
 header('Content-Type: application/json');
 
 try
@@ -37,7 +40,9 @@ try
     $parameters     = $request_body["parameters"] ?? array();
     $get_parameters = $_GET;
     $token          = $request_body["token"] ?? null;
+    if($token == null) $token = $_GET["token"] ?? null;
     if($token == null) $token = $request_header["Authorization"] ?? null;
+    if($token == null) $token = $_SERVER["HTTP_AUTHORIZATION"] ?? null;
 
     if($token != null) $token = str_replace("Bearer ", "", $token);
 
