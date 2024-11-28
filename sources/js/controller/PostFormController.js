@@ -17,6 +17,7 @@ class PostFormController
     toggleView()
     {
         this.postForm.classList.toggle("hidden");
+        this.showImagePreview();
     }
 
     showView()
