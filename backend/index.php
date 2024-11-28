@@ -39,6 +39,19 @@ try
     $token          = $request_body["token"] ?? null;
     if($token == null) $token = $request_header["Authorization"] ?? null;
 
+    if($token != null) $token = str_replace("Bearer ", "", $token);
+
+    require_once "./includes/ErrorLogger.php";
+    $logger = new includes\ErrorLogger();
+
+    $logger->log("===================================================");
+    $logger->log("Request type: " . $_SERVER['REQUEST_METHOD']);
+    $logger->log("Request header: " . json_encode($request_header));
+    $logger->log("Request received: " . json_encode($request_body));
+    $logger->log("Token: " . $token);
+    $logger->log("Endpoint ID: " . $endpoint_id);
+    $logger->log("Parameters: " . json_encode($parameters));
+
     switch($endpoint_id)
     {
         case "auth":

@@ -79,9 +79,20 @@ class JsonWebToken
 
     public static function verifyToken($token)
     {
-        if($token == null || strlen($token) == 0) return false;
+        // Error logger
+        require_once "./includes/ErrorLogger.php";
+
+        if($token == null || strlen($token) == 0)
+        {
+            \includes\ErrorLogger::log("Token is null or empty");
+            return false;
+        }
         $parts = explode(".", $token);
-        if(count($parts) != 3) return false;
+        if(count($parts) != 3)
+        {
+            \includes\ErrorLogger::log("Token has invalid format");
+            return false;
+        }
 
         $header = $parts[0];
         $payload = $parts[1];
@@ -95,7 +106,17 @@ class JsonWebToken
         $payload = json_decode($payload, true);
         $exp = $payload['exp'] ?? 0;
 
-        if($exp < time()) return false;
+        if($exp < time())
+        {
+            \includes\ErrorLogger::log("Token has expired");
+            return false;
+        }
+
+        if($signature != $signature_check)
+        {
+            \includes\ErrorLogger::log("Token signature is invalid");
+            return false;
+        }
 
         return $signature == $signature_check;        
     }

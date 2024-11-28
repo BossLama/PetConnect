@@ -1,0 +1,16 @@
+<IfModule mod_headers.c>
+    # Erlaube CORS für alle Domains (optional spezifische Domains eintragen)
+    Header set Access-Control-Allow-Origin "*"
+    
+    # Erlaube den Zugriff auf spezifische Header, darunter Authorization
+    Header set Access-Control-Allow-Headers "Authorization, Content-Type, X-Requested-With"
+    
+    # Erlaube bestimmte HTTP-Methoden
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+    
+    # Falls Cookies verwendet werden (z.B. für Authentifizierung), muss dieser Header gesetzt werden
+    Header set Access-Control-Allow-Credentials "true"
+    
+    # Erlaube auch die Preflight-Anfragen (OPTIONS)
+    Header always set Access-Control-Max-Age "1000"
+</IfModule>

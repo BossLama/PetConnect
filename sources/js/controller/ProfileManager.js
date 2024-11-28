@@ -14,7 +14,9 @@ class ProfileManager
 
     getAuthToken()
     {
-        return localStorage.getItem('authToken');
+        console.log("Requested auth token");
+        console.log(localStorage.getItem('authToken'));
+        return "Bearer " + localStorage.getItem('authToken');
     }
 
     hasAuthToken()
