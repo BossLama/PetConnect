@@ -23,6 +23,12 @@ class PostFormController
         this.postForm.classList.remove("hidden");
     }
 
+    showViewResponse(responseID)
+    {
+        this.postForm.classList.remove("hidden");
+        document.getElementById("input_message_response").value = responseID;
+    }
+
     hideView()
     {
         this.postForm.classList.add("hidden");
@@ -33,14 +39,18 @@ class PostFormController
     {
         var content = document.getElementById("input_message").value;
         var visibility = document.getElementById("input_visibility").value;
+        var response = document.getElementById("input_message_response").value;
         var isReport = document.getElementById("input_message_missing_report").checked;
+
+        if(response == "") response = null;
 
         console.log(content);
 
         var request_parameter = {
             message: content,
             visibility: visibility,
-            missing_report: isReport
+            missing_report: isReport,
+            reply_to: response
         }
 
         var request_body = {

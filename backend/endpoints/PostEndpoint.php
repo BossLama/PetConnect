@@ -174,6 +174,7 @@ class PostEndpoint extends Endpoint
             'type'          => $type,
             'creator'       => $creator,
             'missing_report'=> $missing_report,
+            "reply_to"      => $reply_to,
             'message'       => $message,
             'related_image_id' => $related_image_id
         ));

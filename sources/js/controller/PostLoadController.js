@@ -100,6 +100,10 @@ class PostLoadController
         postElement.querySelector(".like").addEventListener("click", () => {
             interactController.addLike(post.post_id, postElement);
         });
+
+        postElement.querySelector(".comment").addEventListener("click", () => {
+            postFormController.showViewResponse(post.post_id);
+        });
     }
 }
 
