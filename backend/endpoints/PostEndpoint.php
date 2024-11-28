@@ -103,6 +103,16 @@ class PostEndpoint extends Endpoint
                 $profileCreator['created_at'] = null;
                 $profileCreator['last_login'] = null;
 
+                if(isset($postArray['reply_to']))
+                {
+                    $replyPost = \entities\Post::findByID($postArray['reply_to']);
+                    if($replyPost != null)
+                    {
+                        $replyPostArray = $replyPost->toArray();
+                        $postArray['reply_to'] = $replyPostArray;
+                    }
+                }
+
                 $postArray['creator'] = $profileCreator;
                 $postArray['liked']   = $post->hasLiked($token_payload['user_id']);
                 $filtered_posts[] = $postArray;
@@ -170,7 +180,6 @@ class PostEndpoint extends Endpoint
         require_once "./entities/Post.php";
         $post = new \entities\Post(array(
             'visibility'    => $visibility,
-            'reply_to'      => $reply_to,
             'type'          => $type,
             'creator'       => $creator,
             'missing_report'=> $missing_report,

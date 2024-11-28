@@ -47,6 +47,7 @@ class Post
         $this->missing_report       = $post['missing_report'] ?? false;
         $this->creator              = $post['creator'] ?? null;
         $this->posted_at            = $post['posted_at'] ?? date('Y-m-d H:i:s');
+        $this->reply_to             = $post['reply_to'] ?? null;
         $this->message              = $post['message'] ?? null;
         $this->related_image_id     = $post['related_image_id'] ?? null;
         $this->related_meetup_id    = $post['related_meetup_id'] ?? null;

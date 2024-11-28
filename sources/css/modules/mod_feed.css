@@ -63,6 +63,17 @@
             line-height: 1.7rem;
         }
 
+        .feed .post .reply_msg
+        {
+            display: block;
+            margin: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 178, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 0;
+        }
+
         .feed .post .post-image
         {
             width: 100%;

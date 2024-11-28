@@ -76,12 +76,26 @@ class PostLoadController
         postElement.dataset.post_id = post.post_id;
         postElement.className = "post " + missing_report_class;
 
+        var isReply = post.reply_to != null;
+        var reply_to_message = "";
+
+        if(isReply)
+        {
+            var reply_box = document.createElement("div");
+            reply_box.className = "reply_msg";
+
+            reply_box.innerHTML = ""+  post.reply_to.message;
+            reply_to_message = reply_box.outerHTML;
+        }
+
+
         postElement.innerHTML = `
             <div class="header">
                 <img src="`+ profile_picture +`" alt="Profile">
                 <p class="username">`+ username +`</p>
                 <p class="posted">`+ timeString +` - `+ visibility +`</p>
             </div>
+            `+ reply_to_message +`
             <div class="message">`+ message +`</div>
             <div class="controlls">
                 <button class="button-controll like"><img src="resources/icons/`+ likeIcon +`" alt="Like">

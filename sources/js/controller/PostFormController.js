@@ -44,8 +44,6 @@ class PostFormController
 
         if(response == "") response = null;
 
-        console.log(content);
-
         var request_parameter = {
             message: content,
             visibility: visibility,
