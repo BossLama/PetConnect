@@ -186,6 +186,8 @@ function onRegister()
         {
             const unicornManager =  new UnicornAlertHandler();
             unicornManager.createAlert(UnicornAlertTypes.ERROR, data.message, 5000);
+
+            console.log(data);
         }
     })
 }
