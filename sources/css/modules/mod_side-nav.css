@@ -1,3 +1,21 @@
+.side-nav-mobile-toggle
+{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100000;
+    width: 3rem;
+    height: 3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    @media only screen and (min-width: 768px)
+    {
+        display: none;
+    }
+}
+
 .side-nav
 {
     padding: 2rem 1rem;
@@ -17,13 +35,17 @@
         z-index: 100;
         width: 100%;
         background-color: #000;
+        transform: translateX(-100%);
+        transition: 0.3s transform;
 
-        display: none;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
     }
 }
+
+    .side-nav.mobile-show
+    {
+        transform: translateX(0);
+    }
 
     .side-nav h1
     {
