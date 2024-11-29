@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function createMobileButton()
 {
+    if(window.location.pathname.includes('login.html')) return;
+
     var button = document.createElement("button");
     button.classList.add("side-nav-mobile-toggle");
     button.innerHTML = '<img src="./resources/icons/icon_light_menu.svg" alt="Menu">';
