@@ -1,21 +1,3 @@
-.side-nav-mobile-toggle
-{
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 100000;
-    width: 3rem;
-    height: 3rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-
-    @media only screen and (min-width: 768px)
-    {
-        display: none;
-    }
-}
-
 .side-nav
 {
     padding: 2rem 1rem;
